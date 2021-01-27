@@ -20,7 +20,6 @@ class Solution1 {
         if(digits[0] == 0){
             int[] newDigits = new int[len + 1];
             newDigits[0] = 1;
-            System.arraycopy(digits, 0, newDigits, 1, len);
             return newDigits;
         }
         
