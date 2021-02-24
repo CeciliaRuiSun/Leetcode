@@ -1,5 +1,7 @@
 class Solution {
     //This applies to all situation, no matter how big a or b is
+    // Runtime: 1 ms, faster than 100.00%
+    // Memory Usage: 39.3 MB, less than 18.91% 
     
     public String addBinary(String a, String b) {
         int ind = Math.max(a.length(), b.length());
