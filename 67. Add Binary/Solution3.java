@@ -1,6 +1,8 @@
 class Solution3 {
     //Divided by 2 and mod 2 because of the binary system
     //for decimal system, change 2 to 10
+    //Runtime: 1 ms, faster than 100.00% o
+    //Memory Usage: 37.4 MB, less than 97.72%
     
     
   public String addBinary(String a, String b) {
