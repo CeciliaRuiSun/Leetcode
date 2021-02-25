@@ -1,6 +1,6 @@
-class Solution {
+class Practice1 {
     // This is a practive of recursion. Not applicable when n> 42
-    // Variable visited is not necessary
+    // Variable visited is not necessary, see practice2
 
     int count = 0;
     
