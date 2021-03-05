@@ -7,7 +7,7 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
-class Solution {
+class 1644Solution {
     List<Integer> ls1 = new ArrayList<>();
     List<Integer> ls2 = new ArrayList<>();
     List<Integer> cur = new ArrayList<>();

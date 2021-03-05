@@ -7,7 +7,7 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
-class Solution {
+class 236Solution {
     //Runtime: 7 ms, faster than 35.23% 
     //Memory Usage: 41.6 MB, less than 24.65% 
 
