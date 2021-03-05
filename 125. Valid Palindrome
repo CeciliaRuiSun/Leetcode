@@ -1,0 +1,76 @@
+class Solution {
+    /*public boolean isPalindrome(String s) {
+        return helper(s, 0, s.length() - 1);
+    }
+    
+    
+   private boolean helper(String s, int i, int j){
+        if(i >= j){
+            return true;
+        }
+       
+       char head = Character.toUpperCase(s.charAt(i));
+       char tail = Character.toUpperCase(s.charAt(j));
+       int pre = head - '0'; 
+       while(i < s.length() - 1 && !inScope(pre)){
+           i ++;
+           head = Character.toUpperCase(s.charAt(i));
+           pre = head - '0';
+       }
+       
+       
+       int pos = tail - '0';
+       while(j > 0 && !inScope(pos)){
+           j --;
+           tail = Character.toUpperCase(s.charAt(j));
+           pos = tail - '0';
+       }
+       
+       if(head == tail){
+           int m = i +1;
+           int n = j - 1;
+           return helper(s, m, n);
+        } else if(!inScope(pre) && !inScope(pos)){
+           return true;
+       } else {
+            return false;
+        }
+       
+    }
+    
+    private boolean inScope(int n){
+        if(n >= 0 && n <= 9 || ( n >= 17 && n <= 42)){
+            return true;
+        } else{
+            return false;
+        }
+    }
+    
+    */
+    
+    public boolean isPalindrome(String s) {
+        int left = 0;
+        int right = s.length() - 1;
+        
+        while (left <= right){
+            char head = s.charAt(left);
+            char tail = s.charAt(right);
+            
+            //if left is not in scope, move forward
+            if(!Character.isLetterOrDigit(head)){
+                left ++;
+            } else if(!Character.isLetterOrDigit(tail)){        //if right is not in scope, move forward
+                right --;
+            } else {                 // else compare
+                if(Character.toLowerCase(head) == Character.toLowerCase(tail)){
+                    left ++;
+                    right --;
+                } else {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    
+}
