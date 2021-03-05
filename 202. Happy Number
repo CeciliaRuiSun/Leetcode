@@ -1,0 +1,31 @@
+class Solution {
+// Runtime: 1 ms, faster than 85.74%
+// emory Usage: 35.8 MB, less than 81.34% 
+
+    HashMap<Integer,Integer> hm = new HashMap<Integer,Integer>();
+    public boolean isHappy(int n) {       
+        if(n == 1){
+            return true;
+        }
+        
+
+        int num = helper(n);
+        if(hm.containsKey(num)){
+            return false;
+        }
+       
+        hm.put(num,0);
+        return isHappy(num);
+        
+    }
+    
+    private int helper(int n){
+        int sum = 0;
+        while(n >= 1){
+            int reminder = n % 10;
+            sum += Math.pow(reminder,2);
+            n = n / 10;
+        }
+        return sum;
+    }
+}
