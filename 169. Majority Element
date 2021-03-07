@@ -1,0 +1,26 @@
+class Solution {
+    // Runtime: 8 ms, faster than 40.87%
+    // Memory Usage: 44.5 MB, less than 28.65%
+    
+    public int majorityElement(int[] nums) {
+        HashMap<Integer,Integer> ret = new HashMap<Integer,Integer>();
+        for(int i = 0; i < nums.length; i ++){
+            if(ret.containsKey(nums[i])){
+                int count = ret.get(nums[i]);
+                ret.put(nums[i], count + 1);
+            } else{
+                ret.put(nums[i],1);
+            }
+            
+        } 
+        
+        int result = 0;
+        for (Integer n: ret.keySet()){
+            if(ret.get(n) > nums.length / 2){
+                result = n;
+                break;
+            }
+        }
+        return result;
+    }
+}
