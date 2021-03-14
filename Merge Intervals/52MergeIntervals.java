@@ -1,4 +1,4 @@
-class Solution {
+class 52MergeIntervals {
     // Runtime: 5 ms, faster than 94.78%
     // Memory Usage: 41.4 MB, less than 92.58% 
 

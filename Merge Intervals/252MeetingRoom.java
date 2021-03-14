@@ -1,4 +1,4 @@
-class Solution {
+class 252MeetingRoom {
     // Runtime: 4 ms, faster than 96.71% 
     // Memory Usage: 38.8 MB, less than 73.07%
     

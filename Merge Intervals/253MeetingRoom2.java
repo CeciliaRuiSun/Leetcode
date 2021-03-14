@@ -1,4 +1,4 @@
-class Solution1 {
+class MeetingRoom2 {
     // Runtime: 7 ms, faster than 45.61%
     // Memory Usage: 38.7 MB, less than 86.18%
 
