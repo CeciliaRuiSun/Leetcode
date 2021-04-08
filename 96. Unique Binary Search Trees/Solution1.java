@@ -1,4 +1,4 @@
-class Solution {
+class Solution1 {
     Map<Integer,Integer> map = new HashMap<>();
         
     public int numTrees(int n) {
@@ -10,7 +10,7 @@ class Solution {
             
             int L = 0, R = 0;
             if(map.containsKey(i)){
-               L = map.get(i);
+                L = map.get(i);
             } else{
                 L = numTrees(i);
             }
