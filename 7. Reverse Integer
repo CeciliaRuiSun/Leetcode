@@ -1,0 +1,34 @@
+// O(n)
+// Runtime: 2 ms, faster than 38.38%
+// Memory Usage: 35.8 MB, less than 91.20%
+
+class Solution {
+    public int reverse(int x) {
+        int num = x;
+        int index = -1;
+        int ret = 0;
+        List<Integer> digits = new ArrayList<Integer>();
+        
+        while(Math.abs(num) > 0){
+            if(index == -1 && num%10 == 0){
+                num = num/10;
+            } else{
+                digits.add(num%10);
+                num = num/10;
+                index ++;
+            }
+        }
+        
+        for(int i = 0; i < digits.size(); i ++){
+            //System.out.println(digits.get(i));
+            ret += digits.get(i) * Math.pow(10,index);
+            index --;
+        }
+        
+        if(ret <= (-1)*Math.pow(2,31) || ret >= (Math.pow(2,31) - 1)){
+            return 0;
+        } else{
+            return ret;
+        }
+    }
+}
