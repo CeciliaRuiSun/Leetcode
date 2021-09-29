@@ -1,0 +1,38 @@
+// Runtime: 2 ms, faster than 98.45%
+// Memory Usage: 38.8 MB, less than 89.08%
+
+class Solution {
+    public boolean isPalindrome(String s) {
+        int low = 0;
+        int high = s.length() - 1;
+        
+        while(low < high){
+            char l = Character.toLowerCase(s.charAt(low));
+            char h = Character.toLowerCase(s.charAt(high));
+            
+            if(!isValid(l)){
+                low ++;
+                continue;
+            }
+            
+            if(!isValid(h)){
+                high --;
+                continue;
+            }
+            
+            if(l != h){
+                return false;
+            }
+            
+            low ++;
+            high --;
+        }
+        
+        return true;
+    }
+    
+    private boolean isValid(Character c){
+        return (int) c >= 48 && (int) c <= 57 || ((int) c >= 97 && (int) c <= 122);
+    }
+    
+}
