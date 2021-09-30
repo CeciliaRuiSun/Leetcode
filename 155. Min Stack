@@ -82,3 +82,63 @@ class MinStack {
     }
 
 }
+
+
+
+// Runtime: 132 ms, faster than 6.91%
+// Memory Usage: 40.4 MB, less than 95.72%
+
+class MinStack {
+    Node head;
+    int size = 0;
+    
+    public MinStack() {
+        head = new Node();
+    }
+    
+    public void push(int val) {
+        Node temp = new Node(val);
+        temp.next = head;
+        head = temp;
+        
+        size ++;
+    }
+    
+    public void pop() {
+        head = head.next;
+        size --;
+    }
+    
+    public int top() {
+        return head.val;
+    }
+    
+    public int getMin() {        
+        Node n = head;
+        int min = n.val;
+        
+        int pointer = 0;
+        while(pointer < size - 1){
+            if(n.next.val < min){
+                min = n.next.val;
+            }
+            n = n.next;
+            pointer ++;
+        }
+        return min;
+    }
+    
+    private class Node{
+        int val;
+        Node next;
+        
+        public Node(){
+            
+        }
+        
+        public Node(int v){
+            val = v;
+        }
+    }
+}
+
