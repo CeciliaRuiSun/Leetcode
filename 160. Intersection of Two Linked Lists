@@ -1,0 +1,46 @@
+// Runtime: 2 ms, faster than 45.66%
+//  Memory Usage: 52.1 MB, less than 21.94%
+
+public class Solution {
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        if(headA == null || headB == null){
+            return null;
+        }
+        
+        int lenA = len(headA);
+        int lenB = len(headB);
+        
+        while(lenA > lenB){
+            headA = headA.next;
+            lenA --;
+        }
+        
+        while(lenA < lenB){
+            headB = headB.next;
+            lenB --;
+        }
+        
+        while(headA != null){
+            if(headA == headB){
+                return headA;
+            }
+            headA = headA.next;
+            headB = headB.next;
+        }
+        
+        return null;
+    }
+    
+    private int len(ListNode node){
+        int len = 0;
+        if(node == null){
+            return 0;
+        }
+        
+        while(node != null){
+            len ++;
+            node = node.next;
+        }
+        return len;
+    }
+}
