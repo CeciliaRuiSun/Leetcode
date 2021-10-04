@@ -1,0 +1,31 @@
+// the reason we do n-- is that number 0 is not included in this sheet. 
+// We can consider this transformation as base-26. However, classic base-26 consists of number from 0 to 25, 
+// and in this case we have numbers from 1 to 26. 
+
+
+class Solution {
+    
+   public String convertToTitle(int columnNumber) {
+        StringBuilder ret = new StringBuilder();
+       
+        while(columnNumber > 0){
+            columnNumber --;
+           // System.out.println(columnNumber);
+            ret.append(helper(columnNumber%26));
+            columnNumber = columnNumber/26;
+        }
+       
+        return ret.reverse().toString();
+    }
+    
+    private char helper(int n){
+        return (char) (n + 65);
+    }
+    
+    
+    
+    
+}
+
+
+
