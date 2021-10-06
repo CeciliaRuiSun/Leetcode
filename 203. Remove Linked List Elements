@@ -1,0 +1,30 @@
+// Runtime: 2 ms, faster than 14.45%
+// Memory Usage: 46.5 MB, less than 5.06%
+
+class Solution {
+    public ListNode removeElements(ListNode head, int val) {
+        while(head != null && head.val == val){
+            head = head.next;
+        }
+        
+        if(head == null){
+            return head;
+        }
+        
+        ListNode pointer = head;
+        while(pointer.next != null && pointer.next.next != null){
+            if(pointer.next.val == val){
+                pointer.next = pointer.next.next;
+                continue;
+            } else{
+                pointer = pointer.next;
+            }
+        }
+        
+        if(pointer.next != null && pointer.next.val == val){
+            pointer.next = null;
+        }
+        
+        return head;
+    }
+}
