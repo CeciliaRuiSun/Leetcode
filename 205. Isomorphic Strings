@@ -1,0 +1,51 @@
+// Runtime: 102 ms, faster than 5.14% 
+// Memory Usage: 40.9 MB, less than 5.41%
+
+// put 2 strings' chars in 2 hashmaps, char as key, list of their locations as value
+// then loop through 2 strings again to compare the list, if not match, return false
+
+class Solution {
+    public boolean isIsomorphic(String s, String t) {
+        if(s.length() != t.length()){
+            return false;
+        }
+        
+        HashMap<Character,List<Integer>> maps = new HashMap<Character,List<Integer>>();
+        HashMap<Character,List<Integer>> mapt = new HashMap<Character,List<Integer>>();
+        for(int i = 0; i < s.length(); i++){
+            char c = s.charAt(i);
+            if(maps.containsKey(c)){
+                 maps.get(c).add(i);
+            } else{
+                maps.put(c, new ArrayList<>(Arrays.asList(i)));
+            }
+            
+        }
+        
+        for(int j = 0; j < t.length(); j ++){
+            char c = t.charAt(j);
+            if(mapt.containsKey(c)){
+                 mapt.get(c).add(j);
+            } else{
+                mapt.put(c, new ArrayList<>(Arrays.asList(j)));
+            }
+        }
+        
+        for(int i = 0; i < s.length(); i++){
+            char cs = s.charAt(i);
+            char ct = t.charAt(i);
+            List<Integer> lss = maps.get(cs);
+            List<Integer> lst = mapt.get(ct);
+            if(lss.size() != lst.size()){
+                return false;
+            }
+            for(int j = 0; j < lss.size(); j ++){
+                if(!lss.get(j).equals(lst.get(j))){
+                    return false;
+                }
+            }
+        }
+        
+        return true;
+    }
+}
