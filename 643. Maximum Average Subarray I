@@ -1,0 +1,20 @@
+// runtime: 2 ms, faster than 100.00%
+// Memory Usage: 53.2 MB, less than 76.54% 
+
+class Solution {
+    public double findMaxAverage(int[] nums, int k) {
+        int currentmax = 0;
+        int max = Integer.MIN_VALUE;
+        
+        for(int i = 0; i < nums.length; i++){
+            currentmax += nums[i];
+            
+            if(i >= k - 1){
+                max = Math.max(currentmax,max);
+                currentmax -= nums[i + 1 - k];
+            }
+        }
+        
+        return (double)max/k ;
+    }
+}
