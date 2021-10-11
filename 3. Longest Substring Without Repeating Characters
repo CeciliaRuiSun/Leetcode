@@ -1,0 +1,28 @@
+// Runtime: 7 ms, faster than 55.83%
+// Memory Usage: 39.6 MB, less than 50.21%
+
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        if(s.length() == 0){
+            return 0;
+        }
+        
+        HashMap<Character, Integer> map = new HashMap<Character,Integer>();
+        int start = 0;
+        int max = 0;
+        int curmax = 0;
+        for(int end = 0; end < s.length(); end ++){
+            while(map.containsKey(s.charAt(end))){
+                map.remove(s.charAt(start));
+                start ++;
+                curmax --;
+            }
+            
+            map.put(s.charAt(end), end);
+            curmax ++;
+            max = Math.max(curmax,max);
+        }
+        
+        return max;
+    }
+}
