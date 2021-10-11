@@ -32,3 +32,22 @@ class Solution {
     }
 
 }
+
+// Runtime: 0 ms, faster than 100.00%
+// Memory Usage: 38.5 MB, less than 23.48% 
+
+class Solution {
+    public TreeNode invertTree(TreeNode root) {
+        return helper(root, new TreeNode());
+    }
+    
+    private TreeNode helper(TreeNode root, TreeNode ret){
+        if(root == null){
+            return null;
+        }
+        ret.val = root.val;
+        ret.left = helper(root.right, new TreeNode());
+        ret.right = helper(root.left, new TreeNode());
+        return ret;
+    }
+}
