@@ -1,0 +1,33 @@
+// Runtime: 2616 ms, faster than 5.02%
+// Memory Usage: 481.7 MB, less than 5.03%
+
+class Solution {
+    public String longestPalindrome(String s) {
+        String ret = "";
+        for(int start = 0; start < s.length(); start++){
+            int end = s.length() - 1;
+            while(end - start >= ret.length()){
+                if(isPalindrome(s.substring(start, end+1))){
+                    ret = s.substring(start, end+1);
+                    break;
+                }
+                end --;
+            }
+        }
+        return ret;
+    }
+    
+    private boolean isPalindrome(String s){
+        int left = 0, right = s.length() - 1;
+        while(left < right){
+            if(s.charAt(left)!=s.charAt(right)){
+                return false;
+            } else{
+                left ++;
+                right --;
+            }            
+        }
+        
+        return true;
+    }
+}
