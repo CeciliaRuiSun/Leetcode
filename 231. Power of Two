@@ -1,0 +1,21 @@
+// Runtime: 10 ms, faster than 11.39%
+// Memory Usage: 38.3 MB, less than 15.73%
+
+class Solution {
+    public boolean isPowerOfTwo(int n) {
+        if(n <= 0){
+            return false;
+        }
+        
+        int num = n;
+        while(Math.abs(num) >= 2){
+            if(num%2 == 1){
+                System.out.println(num);
+                return false;
+            }
+            num = num / 2;
+        }
+        
+        return true;
+    }
+}
