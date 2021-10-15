@@ -1,0 +1,52 @@
+class Solution {
+    HashMap<Integer, Integer> map = new HashMap<>();
+    
+    public List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> ret = new List<List<Integer>>();
+        HashMap<Integer, Integer> exists1 = new HashMap<>(); // to store 1st element of <1,2,3>
+        
+        for(int n: nums){
+            if(map.containsKey(n)){
+                map.put(n, map.get(n) + 1);
+            } else{
+                map.put(n, 0);
+            }
+        }   // put all elements into a map and use for twoSum by removing one each time
+        
+        
+        for(int i = 0; i < nums.length; i ++){
+            if(exists1.containsKey(nums[i])){
+                continue;    // avoid duplicate of 1st element
+            } else{
+                exists1.put(nums[i],0);
+            }
+            
+            if(map.get(nums[i] == 0){
+                map.remove(nums[i]);
+            } else{
+                map.put(n, map.get(n) - 1);
+            }
+               
+            int[] subarray = new int[nums.length - i - 1];
+            System.arraycopy(nums,i+1,subarray,0);
+            twoSum(ret, subarray, -1*nums[i]);
+            
+            
+        }
+    }
+    
+    private void twoSum(List<List<Integer>> ret, int[]nums, target){
+        HashMap<Integer, Integer> exists2 = new HashMap<>(); // to store 2rd element of <1,2,3>
+        for(int i = 0; i < nums.length; i++){
+            if(exists2.containsKey(nums[i])){
+                continue;    // avoid duplicate of 2rd element
+            } else{
+                exists2.put(nums[i],0);
+            }
+            
+            if(map.containsKey(target - nums[i])){
+                
+            }
+        }
+    }
+}
