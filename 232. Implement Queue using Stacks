@@ -1,0 +1,34 @@
+// Runtime: 0 ms, faster than 100.00% 
+// Memory Usage: 37.1 MB, less than 50.09%
+
+class MyQueue {
+    Stack<Integer> stk;
+    
+    public MyQueue() {
+        this.stk = new Stack<Integer>();
+    }
+    
+    public void push(int x) {
+        Stack<Integer> temp = new Stack<Integer>();
+        while(!stk.isEmpty()){
+            temp.push(stk.pop());
+        }
+        stk.push(x);
+        
+        while(!temp.isEmpty()){
+            stk.push(temp.pop());
+        }
+    }
+    
+    public int pop() {
+        return stk.pop();
+    }
+    
+    public int peek() {
+        return stk.peek();
+    }
+    
+    public boolean empty() {
+        return stk.isEmpty();
+    }
+}
