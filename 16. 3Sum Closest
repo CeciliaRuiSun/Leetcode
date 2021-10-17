@@ -1,0 +1,32 @@
+// Runtime: 5 ms, faster than 70.31%  o(n^2)
+// Memory Usage: 38.8 MB, less than 52.29% 
+
+class Solution {
+    public int threeSumClosest(int[] nums, int target) {
+        Arrays.sort(nums);
+        //System.out.println(nums.toString());
+        int sum = nums[0] + nums[1] + nums[2];
+             
+        for(int i = 0; i + 1 < nums.length - 1; i ++){
+            int lo = i + 1, hi = nums.length - 1;
+            
+            while(lo < hi){
+                int cursum = nums[i] + nums[lo] + nums[hi];
+                if(Math.abs(cursum - target) < Math.abs(sum - target)){
+                    sum = cursum;
+                }
+                
+                if(cursum > target){
+                    hi --;
+                } else if(cursum < target){
+                    lo ++;
+                } else {
+                    break;
+                }
+            }
+                        
+        }
+        
+        return sum;
+    }
+}
