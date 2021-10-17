@@ -1,4 +1,4 @@
-// Runtime: 26 ms, faster than 62.18%
+// Runtime: 26 ms, faster than 62.18%   O(n^2)
 // Memory Usage: 56.5 MB, less than 31.62%
 
 class Solution {
