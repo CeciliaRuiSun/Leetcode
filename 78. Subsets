@@ -1,0 +1,21 @@
+// Runtime: 2 ms, faster than 33.44%
+// Memory Usage: 40.2 MB, less than 20.67%
+
+class Solution {
+    public List<List<Integer>> subsets(int[] nums) {
+        List<List<Integer>> ret = new ArrayList<>();
+        helper(ret, new ArrayList<Integer>(), nums, 0);
+        return ret;
+    }
+    
+    private void helper(List<List<Integer>> ret, List<Integer> cur, int[] nums, int start){
+        
+        ret.add(new ArrayList<>(cur));
+        
+        for(int i = start; i < nums.length; i++){
+            cur.add(nums[i]);
+            helper(ret, cur, nums, i + 1);
+            cur.remove(cur.size() - 1);
+        }
+    }
+}
