@@ -1,0 +1,34 @@
+// 
+// 
+
+class Solution {
+    private final String[] keys = {"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+        
+    public List<String> letterCombinations(String digits) {
+         List<String> ret = new ArrayList<>();
+        if(digits == null || digits.length() == 0){
+            return ret;
+        }
+        
+        combination(ret, digits, "", 0);
+        
+        return ret;
+    }
+    
+    private void combination(List<String> ret, String digits, String cur, int pointer){
+        if(cur.length() == digits.length()){
+            ret.add(cur);
+            return;
+        }
+        
+        String letters = keys[digits.charAt(pointer) - '0'];
+        
+        for(int i = 0; i < letters.length(); i ++){
+            //cur = cur + letters.charAt(i);  -- there is problem
+            // 将cur + letters.charAt(i)直接写入递归函数中而不是采用上面的写法是因为这种写法下cur在递归调用前后不变，相当于进行了上一行代码+递归后remove两个操作
+            combination(ret, digits, cur + letters.charAt(i), pointer + 1);
+            
+        }
+    }
+}
+
