@@ -1,0 +1,29 @@
+// Runtime: 1 ms, faster than 99.71%
+// Memory Usage: 39.4 MB, less than 89.12%
+
+class Solution {
+    public List<List<Integer>> permuteUnique(int[] nums) {
+        List<List<Integer>> ret = new ArrayList<>();
+        Arrays.sort(nums);
+        helper(ret, new ArrayList<Integer>(), nums, new boolean[nums.length]);
+        return ret;
+    }
+    
+    private void helper(List<List<Integer>> ret, List<Integer> cur, int[]nums, boolean[] visited){
+        if(cur.size() == nums.length){
+            ret.add(new ArrayList<>(cur));
+        }
+        
+        for(int i = 0; i< nums.length; i++){
+            if(visited[i] || (i > 0 && nums[i] == nums[i - 1] && !visited[i - 1])){
+                continue;
+            }
+            
+            cur.add(nums[i]);
+            visited[i] = true;
+            helper(ret, cur, nums, visited);
+            cur.remove(cur.size() - 1);
+            visited[i] = false;
+        }
+    }
+}
