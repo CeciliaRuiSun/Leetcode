@@ -1,0 +1,27 @@
+// Runtime: 2 ms, faster than 58.42%
+// Memory Usage: 40.6 MB, less than 40.27% 
+
+class Solution {
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        Arrays.sort(nums);
+        List<List<Integer>> ret = new ArrayList<>();
+        helper(ret, new ArrayList<Integer>(), nums, 0, new boolean[nums.length]);
+        return ret;
+    }
+    
+    private void helper(List<List<Integer>> ret, List<Integer> cur, int[] nums, int start, boolean[] visited){
+        ret.add(new ArrayList<>(cur));
+        
+        for(int i = start; i < nums.length; i ++){
+            if(i > 0 && nums[i] == nums[i - 1] && !visited[i - 1]){
+                continue;
+            }
+            
+            cur.add(nums[i]);
+            visited[i] = true;
+            helper(ret, cur, nums, i  + 1, visited);
+            cur.remove(cur.size() - 1);
+            visited[i] = false;
+        }
+    }
+}
