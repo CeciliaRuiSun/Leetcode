@@ -1,0 +1,39 @@
+// Runtime: 8 ms, faster than 5.85% 
+// Memory Usage: 39.1 MB, less than 21.27%
+
+class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        int size = 0;
+        ListNode temp = head;
+        while(temp!=null){
+            temp = temp.next;
+            size ++;
+        }
+        
+        if(size == 1){
+            return null;
+        }
+        
+        if(n == size){
+            head = head.next;
+            return head;
+        }
+        
+        ListNode temp2 = head;
+        int i = 0;
+        while(i < size - n - 1){
+            temp2 = temp2.next;
+            i ++;
+        }
+        
+        System.out.println(temp2.val);
+        
+        if(temp2.next.next == null){
+            temp2.next = null;
+        } else{
+            temp2.next = temp2.next.next;
+        }
+        
+        return head;
+    }
+}
