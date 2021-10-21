@@ -1,0 +1,36 @@
+// Runtime: 5 ms, faster than 52.44%
+// Memory Usage: 42.2 MB, less than 13.80%
+
+class Solution {
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        Arrays.sort(candidates);
+        List<List<Integer>> ret = new ArrayList<>();
+        helper(ret, new ArrayList<Integer>(), candidates, 0, target, 0);
+        return ret;
+    }
+    
+    private void helper(List<List<Integer>> ret, List<Integer> cur, int[] nums, int sum, int target, int start){
+        if(sum == target){
+            ret.add(new ArrayList<>(cur));
+            return;
+        }
+        
+        if(sum > target){
+            return;
+        }
+        
+        for(int i = start; i < nums.length; i ++){
+            cur.add(nums[i]);
+            sum += nums[i];
+            
+            
+            helper(ret, cur, nums, sum, target, i);
+            cur.remove(cur.size() - 1);
+            sum -= nums[i];
+            if(sum + nums[i] > target){
+                break;
+            }
+        }
+        
+    }
+}
