@@ -1,0 +1,50 @@
+// Runtime: 0 ms, faster than 100.00% 
+// Memory Usage: 38.5 MB, less than 32.45%
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode swapPairs(ListNode head) {
+        ListNode sentinal = new ListNode();
+        ListNode ret = new ListNode();
+        sentinal.next = head;
+        ret.next = sentinal;
+        ListNode temp = head;
+        
+        if(head == null || head.next == null){
+            return head;
+        }
+        
+        if(head.next.next == null){
+            sentinal.next = head.next;
+            sentinal.next.next = head;
+            head.next = null;
+            return sentinal.next;
+        }
+        
+        while(sentinal.next.next != null && sentinal.next.next.next != null){
+            sentinal.next = temp.next;
+            temp.next = sentinal.next.next;
+            sentinal.next.next = temp;
+            sentinal = sentinal.next.next;
+            temp = temp.next;
+        }
+        
+        if(sentinal.next.next != null){
+            sentinal.next = temp.next;
+            sentinal.next.next = temp;
+            temp.next = null;
+        }
+        
+        return ret.next.next;
+        
+    }
+}
