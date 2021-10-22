@@ -1,0 +1,29 @@
+// Runtime: 13 ms, faster than 29.80% 
+// Memory Usage: 53 MB, less than 56.38%
+
+class Solution {
+    public boolean isPalindrome(ListNode head) {
+        StringBuilder s = new StringBuilder();
+        ListNode node = head;
+        
+        while(node != null){
+            s.append(node.val);
+            node = node.next;
+        }
+        
+        return helper(s.toString());
+    }
+    
+    private boolean helper(String s){
+        int lo = 0, hi = s.length() - 1;
+        while(lo < hi){
+            if(s.charAt(lo) != s.charAt(hi)){
+                return false;
+            }
+            lo ++;
+            hi --;
+        }
+        
+        return true;
+    }
+}
