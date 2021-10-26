@@ -1,0 +1,40 @@
+// Runtime: 1 ms, faster than 60.61% 
+// Memory Usage: 40.5 MB, less than 23.66%
+
+class Solution {
+    public void nextPermutation(int[] nums) {
+        for(int i = nums.length - 1; i > 0; i --){
+           // System.out.println("i: " + i);
+            if(nums[i - 1] < nums[i]){
+                int j = nums.length - 1;
+                while(true){
+                    if(nums[j] > nums[i - 1]){
+                        swap(nums, j, i-1);
+                        break;
+                    }
+                    j --;
+                }
+                reorder(nums, i, nums.length - 1);
+                return;
+            }
+        }
+        
+        reorder(nums, 0, nums.length - 1);
+    }
+    
+    private void swap(int[] nums, int i, int j){
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
+    
+    private void reorder(int[] nums, int i, int j){
+        int left = i, right = j;
+        while(left < right){
+            swap(nums, left, right);
+            left ++;
+            right --;
+            
+        }
+    }
+}
