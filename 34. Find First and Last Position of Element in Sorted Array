@@ -1,0 +1,48 @@
+// Runtime: 0 ms, faster than 100.00% 
+// Memory Usage: 42.7 MB, less than 48.67%
+
+class Solution {
+    public int[] searchRange(int[] nums, int target) {
+        int[] ret = new int[2];
+        ret[0] = findlow(nums,target);
+        ret[1] = findhigh(nums,target);
+        return ret;
+    }
+    
+    private int findlow(int[] nums, int target){
+        int loc = -1, left = 0, right = nums.length - 1;
+        while(left <= right){
+            int mid = (left + right) / 2;
+            //System.out.println("left: " + left + " right: " + right + " mid: " + mid);
+            if(nums[mid] >= target){
+                right = mid - 1; 
+                if(nums[mid] == target && (mid == 0 || nums[mid-1] < nums[mid])){
+                    loc = mid;
+                    break;
+                }
+            } else{
+                left = mid + 1;
+            }
+        }
+        
+        return loc;
+    }
+    
+    private int findhigh(int[] nums, int target){
+        int loc = -1, left = 0, right = nums.length - 1;
+        while(left <= right){
+            int mid = (left + right) / 2;
+            if(nums[mid] > target){
+                right = mid - 1;
+            } else{
+                left = mid + 1;
+                if(mid + 1 <= nums.length && nums[mid] == target && (mid == nums.length - 1 || nums[mid] < nums[mid + 1])){
+                    loc = mid;
+                    break;
+                }
+            }
+            
+        }
+        return loc;
+    }
+}
