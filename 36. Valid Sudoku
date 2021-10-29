@@ -1,0 +1,29 @@
+// Runtime: 13 ms, faster than 30.54%
+// Memory Usage: 39.9 MB, less than 51.47% 
+
+class Solution {
+    Set map = new HashSet();
+    
+    public boolean isValidSudoku(char[][] board) {
+        for(int i = 0; i < 9; i++){
+            for(int j = 0; j < 9; j++){
+                char c = board[i][j];
+                if(c == '.'){
+                    continue;
+                }
+                
+                if(!map.add(c + "row" + i) 
+                   || !map.add(c + "col" + j) 
+                   || !map.add(c + "box" + i/3 + j/3)
+                ){
+                    return false;
+                }
+                
+            }
+        }
+        
+        return true;
+    }
+    
+    
+}
