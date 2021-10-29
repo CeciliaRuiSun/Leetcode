@@ -1,0 +1,32 @@
+// Runtime: 2 ms, faster than 99.28%
+// Memory Usage: 39.4 MB, less than 66.53%
+
+class Solution {
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        Arrays.sort(candidates);
+        
+        List<List<Integer>> ret = new ArrayList<>();
+        return helper(ret, new ArrayList<Integer>(), candidates, 0, target);
+    }
+    
+    private List<List<Integer>> helper(List<List<Integer>> ret, List<Integer> cur, int[] nums, int start, int target){
+        if(target == 0){
+            ret.add(new ArrayList<>(cur));
+            return ret;
+        }
+        
+        for(int i = start; i < nums.length; i ++){
+            if(nums[i] > target){
+                break;
+            }
+            
+            if(i > start && nums[i] == nums[i-1]) continue; //skip duplicate combination
+            
+            cur.add(nums[i]);
+            helper(ret, cur, nums, i + 1, target - nums[i]);
+            cur.remove(cur.size() - 1);
+        }
+        
+        return ret;
+    }
+}
