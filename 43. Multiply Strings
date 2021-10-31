@@ -14,6 +14,7 @@ class Solution {
             }
         }
         
+        // update product
         int carry = 0;
         for(int i = product.length - 1; i >=0 ; i--){
             int temp = (product[i] + carry)%10;
@@ -21,6 +22,7 @@ class Solution {
             product[i] = temp;
         }
         
+        // copy product to string
         StringBuilder ret = new StringBuilder();
         for(int num: product){
             ret.append(num);
