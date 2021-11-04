@@ -1,0 +1,48 @@
+// Runtime: 1 ms, faster than 97.43%
+// Memory Usage: 41.9 MB, less than 57.88%
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    private int deepestLevel;
+    private int sum = 0;
+    
+    public int deepestLeavesSum(TreeNode root) {
+        return DFS(root, 0);
+    }
+    
+    private int DFS(TreeNode root, int level){
+       
+        if(root == null){
+            return sum;
+        }
+        
+       
+        if(level == deepestLevel){
+            sum += root.val;
+        }
+        
+        if(level > deepestLevel){
+            sum = root.val;
+            deepestLevel = level;
+        }
+         
+        DFS(root.left, level + 1);
+        DFS(root.right, level + 1);
+        
+        return sum;
+    }
+}
