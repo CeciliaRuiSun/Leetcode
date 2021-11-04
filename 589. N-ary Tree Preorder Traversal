@@ -1,0 +1,40 @@
+// Runtime: 0 ms, faster than 100.00%
+// Memory Usage: 40.3 MB, less than 41.56%
+ 
+/*
+// Definition for a Node.
+class Node {
+    public int val;
+    public List<Node> children;
+
+    public Node() {}
+
+    public Node(int _val) {
+        val = _val;
+    }
+
+    public Node(int _val, List<Node> _children) {
+        val = _val;
+        children = _children;
+    }
+};
+*/
+
+class Solution {
+    public List<Integer> preorder(Node root) {
+        return helper(new ArrayList<>(), root);
+    }
+    
+    private List<Integer> helper(List<Integer> ret, Node root){
+        if(root == null){
+            return ret;
+        }
+        
+        ret.add(root.val);
+        for(Node n: root.children){
+            helper(ret, n);
+        }
+        
+        return ret;
+    }
+}
