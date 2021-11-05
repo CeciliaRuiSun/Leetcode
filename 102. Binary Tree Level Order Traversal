@@ -1,0 +1,39 @@
+// Runtime: 0 ms, faster than 100.00%
+// Memory Usage: 39.1 MB, less than 86.09% 
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        return DFS(root, new ArrayList<>(),0);
+    }
+    
+    private List<List<Integer>> DFS(TreeNode root, List<List<Integer>> ret, int level){
+        if(root == null){
+            return ret;
+        }
+        
+        if(ret.size() == level){
+            ret.add(new ArrayList<>());
+        }
+        
+        ret.get(level).add(root.val);
+        DFS(root.left, ret, level + 1);
+        DFS(root.right, ret, level + 1);
+        
+        return ret;
+    }
+}
