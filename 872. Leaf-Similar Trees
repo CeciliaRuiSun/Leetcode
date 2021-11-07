@@ -41,11 +41,13 @@ class Solution {
         if(root.left == null && root.right == null){
             ret.add(root.val);
             return ret;
-        } else if(root.left != null){
+        } else if(root.left != null && root.right == null){
             leaves(root.left, ret);
-        } else if(root.right != null){
+        } else if(root.right != null && root.left == null){
             leaves(root.right, ret);
-        }
+        } else{
+            leaves(root.left, ret);
+         leaves(root.right, ret);}
         
         return ret;
     }
