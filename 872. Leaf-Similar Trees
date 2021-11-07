@@ -35,16 +35,21 @@ class Solution {
     
     private List<Integer> leaves(TreeNode root, List<Integer> ret){
         if(root == null){
-           
-        } else if(root.left == null && root.right == null){
+            return ret;
+        } 
+        
+        if(root.left == null && root.right == null){
             ret.add(root.val);
-        } else if(root.left != null && root.right == null){
+            return ret;
+        } 
+        
+        if(root.left != null){
             leaves(root.left, ret);
-        } else if(root.right != null && root.left == null){
+        } 
+        
+        if(root.right != null ){
             leaves(root.right, ret);
-        } else{
-            leaves(root.left, ret);
-            leaves(root.right, ret);}
+        }
         
         return ret;
     }
