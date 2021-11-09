@@ -1,0 +1,54 @@
+// Runtime: 1 ms, faster than 99.98% 
+// Memory Usage: 39.5 MB, less than 61.22%
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
+        List<List<Integer>> ret = new ArrayList<>();
+        List<Integer> cur = new ArrayList<>();
+        helper(ret, cur, root, targetSum);
+        
+        return ret;
+    }
+    
+    private void helper(List<List<Integer>> ret, List<Integer> cur, TreeNode root, int targetSum){
+        if(root == null){
+            return;
+        } 
+        
+        cur.add(root.val);
+        
+        if(root.left == null && root.right == null && root.val == targetSum){                   ret.add(new ArrayList<>(cur));
+            return;       
+        } 
+        
+        if(root.left == null && root.right == null){
+            return;
+        } 
+        
+        if(root.left != null){
+            helper(ret, cur, root.left, targetSum - root.val);
+            cur.remove(cur.size() - 1);
+        }  
+            
+        if(root.right != null){
+            helper(ret, cur, root.right, targetSum - root.val);
+            cur.remove(cur.size() - 1);
+        }
+        
+    }
+}
