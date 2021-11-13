@@ -1,0 +1,47 @@
+// Runtime: 11 ms, faster than 17.88%
+// Memory Usage: 39.4 MB, less than 74.92%
+
+class Solution {
+    HashMap<Integer,Integer> map = new HashMap();
+    
+    public int[] findFrequentTreeSum(TreeNode root) {
+        traverse(root);
+        ArrayList<Integer> ret = new ArrayList<>();
+        int max = 0;
+        for(Integer k: map.keySet()){
+            int v = map.get(k);
+            if( v > max){
+                ret.clear();
+                max = v;
+                ret.add(k);
+            } else if(v == max){
+                ret.add(k);
+            }
+        }
+        
+        int[] res = new int[ret.size()];
+        for(int i = 0; i < ret.size(); i ++){
+            res[i] = ret.get(i);
+        }
+        return res;
+    }
+    
+    private int rootSum(TreeNode root, int sum){
+        if(root == null){
+            return sum;
+        }
+        
+        return rootSum(root.left, 0) + root.val + rootSum(root.right, 0);
+    }
+    
+    private void traverse(TreeNode root){
+        if(root == null){
+            return;
+        }
+        
+        int sum = rootSum(root,0);
+        map.put(sum,map.getOrDefault(sum,0) + 1);
+        traverse(root.left);
+        traverse(root.right);
+    }
+}
