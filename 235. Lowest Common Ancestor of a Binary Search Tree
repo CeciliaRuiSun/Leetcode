@@ -1,0 +1,19 @@
+// Runtime: 3 ms, faster than 100.00%
+// Memory Usage: 39.9 MB, less than 58.67%
+
+class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        int min = Math.min(p.val, q.val);
+        int max = Math.max(p.val,q.val);
+        if(root == null || root == p || root == q || (root.val > min && root.val < max)){
+            //System.out.println(root.val);
+            return root;
+        }
+        
+        if(root.val > min){
+            return lowestCommonAncestor(root.left, p, q);
+        } else{
+            return lowestCommonAncestor(root.right, p, q);
+        }
+    }
+}
