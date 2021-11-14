@@ -16,28 +16,58 @@
 class Solution {
     // Time: O(n)
     // Space: O(n)
-     
+    
     public boolean isValidBST(TreeNode root) {
-        if(root == null){
-            return true;
-        }
         
-        return DFS(root, null, null);
-        
+        return helper(root, Long.MIN_VALUE, Long.MAX_VALUE);
     }
     
-    private boolean DFS(TreeNode root, Integer min, Integer max){
+    private boolean helper(TreeNode root, long min, long max){
         if(root == null){
             return true;
         }
-                
-        if(min != null && root.val <= min || (max != null && root.val >= max)){
+        
+        if(root.val >= max || root.val <= min){
             return false;
         }
         
-        return DFS(root.left, min, root.val) && DFS(root.right, root.val, max);
+        return helper(root.left, min, root.val) && helper(root.right, root.val, max);
     }
     
+}
+
+Solution2: first use inorder traversal, store in an array and see if they are sorted.
+// Runtime: 1 ms, faster than 39.82%
+// Memory Usage: 38.7 MB, less than 54.27% 
+
+class Solution {
+    // Time: O(n)
+    // Space: O(n)
+    
+    private List<Long> ls = new ArrayList<>();
+    
+    public boolean isValidBST(TreeNode root) {
+        helper(root);
+        for(int i = 0; i < ls.size() - 1; i++){
+            if(ls.get(i) >= ls.get(i + 1)){
+                return false;
+            }
+        }
+        
+        return true;
+    }
+    
+    private void helper(TreeNode root){
+        if(root == null){
+            return;
+        }
+        
+        helper(root.left);
+        ls.add((long)root.val);
+        helper(root.right);
+    }
     
 
 }
+
+
