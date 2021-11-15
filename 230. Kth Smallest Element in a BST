@@ -1,0 +1,21 @@
+// Runtime: 1 ms, faster than 45.89%
+// Memory Usage: 39.6 MB, less than 37.96%
+
+class Solution {
+    List<Integer> nodes = new ArrayList<>();
+    
+    public int kthSmallest(TreeNode root, int k) {
+        helper(root);
+        return nodes.get(k - 1);
+    }
+    
+    private void helper(TreeNode root){
+        if(root == null){
+            return;
+        }
+        
+        helper(root.left);
+        nodes.add(root.val);
+        helper(root.right);
+    }
+}
