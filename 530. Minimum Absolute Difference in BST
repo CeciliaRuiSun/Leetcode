@@ -1,0 +1,30 @@
+// Runtime: 1 ms, faster than 57.32%
+// Memory Usage: 39.4 MB, less than 43.75%
+
+class Solution {
+    List<Integer> nodes = new ArrayList<>();
+    
+    public int getMinimumDifference(TreeNode root) {
+        traverse(root);
+        int ret = Integer.MAX_VALUE;
+        
+        for(int i = 0; i < nodes.size() - 1; i++){
+            int diff = Math.abs(nodes.get(i) - nodes.get(i + 1));
+            if(diff < ret){
+                ret = diff;
+            }
+        }
+        
+        return ret;
+    }
+    
+    private void traverse(TreeNode root){
+        if(root == null){
+            return;
+        }
+        
+        traverse(root.left);
+        nodes.add(root.val);
+        traverse(root.right);
+    }
+}
