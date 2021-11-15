@@ -31,3 +31,28 @@ class Solution {
         }
     }
 }
+
+
+// solution 2
+// Runtime: 0 ms, faster than 100.00%
+// Memory Usage: 39.8 MB, less than 68.24%
+
+class Solution {
+    TreeNode ret;
+    
+    public TreeNode searchBST(TreeNode root, int val) {
+        if(root == null){
+            return ret;
+        }
+        
+        if(root.val == val){
+            ret = root;
+            return ret;
+        }
+        
+        searchBST(root.left, val);
+        searchBST(root.right, val);
+        
+        return ret;
+    }
+}
