@@ -1,0 +1,42 @@
+// Runtime: 2 ms, faster than 90.52%
+// Memory Usage: 39.6 MB, less than 50.38%
+// There is an algorithm here. after inorder traverse, for example, if it is 6,3,4,5,2, then the first time we found previous value(6) bigger than the next value(3), 
+// then the current previous node(6) is the first node we want to find; and the second time we found same situation(5 > 2), then the later node(2) is the second node
+// we want to find.
+
+class Solution {
+    public void recoverTree(TreeNode root) {
+        List<TreeNode> ls = traverse(root, new ArrayList<TreeNode>());
+        TreeNode first = null;
+        TreeNode second = null;
+        TreeNode prev = ls.get(0);
+        for(int i = 1; i < ls.size(); i++){
+            if(prev.val > ls.get(i).val && first == null){
+                first = prev;
+            } 
+            
+            if(prev.val > ls.get(i).val && first != null){
+                second = ls.get(i);
+            }
+            prev = ls.get(i);
+        }
+        
+        int temp = first.val;
+        first.val = second.val;
+        second.val = temp;
+    }
+    
+    private List<TreeNode> traverse(TreeNode root, List<TreeNode> ls){
+        if(root == null){
+            return ls;
+        }
+        
+        traverse(root.left, ls);
+        ls.add(root);
+        traverse(root.right, ls);
+        
+        return ls;
+    }
+    
+    
+}
