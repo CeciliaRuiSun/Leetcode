@@ -1,0 +1,35 @@
+// Runtime: 4 ms, faster than 49.22% 
+// Memory Usage: 40.4 MB, less than 63.38%
+
+class Solution {
+    HashMap<Integer, Integer> map = new HashMap<>();
+    int max = 0;
+    
+    public int[] findMode(TreeNode root) {
+        List<Integer> ls = helper(root, new ArrayList<Integer>());
+        int[] ret = new int[ls.size()];
+        for(int i = 0; i < ls.size(); i ++){
+            ret[i] = ls.get(i);
+        }
+        return ret;
+    }
+    
+    private List<Integer> helper(TreeNode root, List<Integer> ls){
+        if(root == null){
+            return ls;
+        }
+        
+        map.put(root.val, map.getOrDefault(root.val,0) + 1);
+        if(map.get(root.val) == max){
+            ls.add(root.val);
+        } else if(map.get(root.val) > max){
+            max = map.get(root.val);
+            ls.clear();
+            ls.add(root.val);            
+        }
+        
+        helper(root.left, ls);
+        helper(root.right,ls);
+        return ls;
+    }
+}
