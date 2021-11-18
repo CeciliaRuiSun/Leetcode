@@ -64,3 +64,43 @@ class Solution {
         return head.next;
     }
 }
+
+
+
+// solution 2
+// Runtime: 2 ms, faster than 66.97%
+// Memory Usage: 39.4 MB, less than 52.77%
+
+class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode ret = new ListNode();
+        ListNode temp = ret, temp1 = l1, temp2 = l2;
+        int carry = 0;
+        
+        while(temp1 != null || temp2 != null || carry != 0){
+            //System.out.println(temp1.val + " " + temp2.val + " " + carry);
+            temp.next = new ListNode();
+            temp = temp.next;
+            
+            if(temp1 != null){
+                carry += temp1.val;
+                temp1 = temp1.next;
+            }
+            
+            if(temp2 != null){
+                carry += temp2.val;
+                temp2 = temp2.next;
+            }
+            
+            if(carry < 10){
+                temp.val = carry;
+                carry = 0;
+            } else{
+                temp.val = carry % 10;
+                carry = carry / 10;
+            }
+        }
+        
+        return ret.next;
+    }
+}
