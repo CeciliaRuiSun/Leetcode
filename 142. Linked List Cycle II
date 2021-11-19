@@ -1,5 +1,6 @@
 // Runtime: 0 ms, faster than 100.00%
 // Memory Usage: 39.1 MB, less than 73.15%
+// https://www.youtube.com/watch?v=UkKBPGt5Nok
 
 public class Solution {
     public ListNode detectCycle(ListNode head) {
