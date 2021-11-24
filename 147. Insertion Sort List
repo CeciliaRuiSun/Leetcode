@@ -1,0 +1,32 @@
+// Runtime: 28 ms, faster than 57.90%
+// Memory Usage: 38.7 MB, less than 72.90%
+
+class Solution {
+    public ListNode insertionSortList(ListNode head) {
+        ListNode sentinal = new ListNode();
+        ListNode cur = head;
+        
+        while(cur != null){
+            ListNode prep = sentinal;
+            while(prep.next != null){
+                if(cur.val <= prep.next.val){
+                    // insert cur between prep and prep.next
+                    ListNode temp = new ListNode(cur.val);
+                    temp.next = prep.next;
+                    prep.next = temp;
+                    break;
+                } else{
+                    prep = prep.next;
+                }
+            }
+            
+            if(prep.next == null){
+                prep.next = new ListNode(cur.val);
+            }
+            
+            cur = cur.next;
+        }
+        
+        return sentinal.next;
+    }
+}
