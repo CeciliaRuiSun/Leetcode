@@ -1,0 +1,57 @@
+// Runtime: 339 ms, faster than 9.42%
+// Memory Usage: 229.8 MB, less than 15.90%
+
+class Node{
+        String val;
+        int time;
+        
+        Node(String value, int timestamp){
+            this.val = value;
+            this.time = timestamp;
+        }
+    }
+    
+
+class TimeMap {
+    HashMap<String, List<Node>> map = new HashMap<>();
+    
+    public TimeMap() {
+        
+    }
+    
+    public void set(String key, String value, int timestamp) {
+        if(!map.containsKey(key)){
+            map.put(key, new ArrayList<>());
+        }
+        
+        map.get(key).add(new Node(value, timestamp));
+    }
+    
+    public String get(String key, int timestamp) {
+        if(!map.containsKey(key)){
+            return "";
+        }
+        List<Node> target = map.get(key);
+        int left = 0, right = target.size() - 1;
+        while(left <= right){
+            int mid = left + (right - left)/2;
+            int getTime = target.get(mid).time;
+            if(getTime == timestamp || (getTime < timestamp && (mid == target.size() - 1 || target.get(mid + 1).time > timestamp))){
+                return target.get(mid).val;
+            } else if(getTime < timestamp){
+                left = mid + 1;
+            } else if(getTime > timestamp){
+                right = mid - 1;
+            }
+        }
+        
+        return "";
+    }
+}
+
+/**
+ * Your TimeMap object will be instantiated and called as such:
+ * TimeMap obj = new TimeMap();
+ * obj.set(key,value,timestamp);
+ * String param_2 = obj.get(key,timestamp);
+ */
