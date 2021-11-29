@@ -1,0 +1,27 @@
+// Runtime: 0 ms, faster than 100.00%
+// Memory Usage: 38.6 MB, less than 81.79%
+
+class Solution {
+    public int findPeakElement(int[] nums) {
+        int left = 0, right = nums.length - 1;
+        
+        while(left <= right){
+            if(left == right){
+                return left;
+            }
+            
+            int mid = left + (right - left)/2;
+            int mid2 = mid + 1;
+            
+            if(nums[mid] < nums[mid2]){
+                // there must be a peak at right side
+                left = mid + 1;
+            } else{
+                // there must be a peak at left side
+                right = mid;
+            }
+        }
+        
+        return left;
+    }
+}
