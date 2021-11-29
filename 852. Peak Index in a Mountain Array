@@ -1,0 +1,23 @@
+// Runtime: 0 ms, faster than 100.00%
+// Memory Usage: 38.9 MB, less than 98.04%
+
+class Solution {
+    public int peakIndexInMountainArray(int[] arr) {
+        int left = 0, right = arr.length - 1;
+        
+        while(left <= right){
+            int mid = left + (right - left)/2;
+            if(arr[mid] > arr[mid - 1] && arr[mid] > arr[mid + 1]){
+                return mid;
+            }
+            
+            if(arr[mid] > arr[mid + 1]){
+                right = mid;
+            } else{
+                left = mid + 1;
+            }
+        }
+        
+        return left;
+    }
+}
