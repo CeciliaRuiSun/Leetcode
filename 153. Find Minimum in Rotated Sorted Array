@@ -1,14 +1,10 @@
 // Runtime: 0 ms, faster than 100.00%
-// Memory Usage: 38.6 MB, less than 53.55%
+//Memory Usage: 38 MB, less than 97.69% 
 
 class Solution {
     public int findMin(int[] nums) {
         int min = Integer.MAX_VALUE;
         int left = 0, right = nums.length - 1;
-        if(nums[left] < nums[right]){
-            // nums is not rotated
-            return nums[left];
-        }
         
         while(left <= right){
             
@@ -18,15 +14,10 @@ class Solution {
                 min = nums[mid];
             }
             
-            //System.out.println("left: " + nums[left] + " right: " + nums[right] + " mid: " + nums[mid] + " min: " + min);
-            
             if(nums[left] < nums[mid]){
-                // left part is sorted 
-                if(nums[left] < nums[right]){
-                    // left part is sorted, left is possibly min
-                    if(nums[left] < min){
-                        min = nums[left];
-                    }
+                // left part is sorted, min is either nums[left] or in right part
+                if(nums[left] < nums[right] && nums[left] < min){
+                    min = nums[left];
                     break;
                 } else{
                     // min in right part
