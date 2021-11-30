@@ -1,0 +1,48 @@
+// Runtime: 15 ms, faster than 64.78%
+// Memory Usage: 39.7 MB, less than 97.96%
+
+class Solution {
+    public int minEatingSpeed(int[] piles, int h) {
+        // final rate is somewhere between 1 and max value in piles
+        int hi = findMax(piles);
+        int lo = 1;
+        int ret = hi;
+        
+        // use binary search to find the final rate
+        while(lo <= hi){
+            int mid = lo + (hi - lo)/2;
+            int hours = calHour(piles, mid);
+            if(hours <= h){
+                hi = mid - 1;
+                ret = mid;
+            } else{
+                lo = mid + 1;
+            }
+        }
+        
+        return ret;
+    }
+    
+    private int findMax(int[] nums){
+        int max = 0;
+        for(int i: nums){
+            max = Math.max(max, i);
+        }
+        
+        return max;
+    }
+    
+    private int calHour(int[] piles, int rate){
+        int hours = 0;
+        for(int n: piles){
+            // be aware of how to calculate hours here
+            hours += n/rate;
+            
+            if(n % rate != 0){
+                hours ++;
+            }
+        }
+        
+        return hours;
+    }
+}
