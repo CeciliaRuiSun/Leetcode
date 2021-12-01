@@ -13,7 +13,7 @@ class Solution {
         int lo = 0, hi = x;
         while(lo <= hi){
             int partitionX = (lo + hi)/2;
-            int partitionY = (x + y + 1)/2 - partitionX;
+            int partitionY = (x + y + 1)/2 - partitionX;     // using (x + y + 1)/2 instead of (x+y)/2 to ensure left part has more elements in case m+n is odd
             
             int maxLeftX = (partitionX == 0) ? Integer.MIN_VALUE: nums1[partitionX -  1];
             int minRightX = (partitionX == x) ? Integer.MAX_VALUE: nums1[partitionX];
