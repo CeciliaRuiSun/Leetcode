@@ -1,0 +1,35 @@
+// Runtime: 11 ms, faster than 98.05% 
+// Memory Usage: 35.5 MB, less than 98.78%
+
+class Solution {
+    public int findKthNumber(int m, int n, int k) {
+        int lo = 0, hi = m*n;
+        
+        while(lo <= hi){
+            int mid = lo + (hi - lo)/2;
+            int cnt = getSmallerorEqual(mid, m, n);
+            if(cnt < k){
+                lo = mid + 1;
+            } else{
+                hi = mid - 1;   // ? why not hi = mid?
+            }
+        }
+        
+        return lo;
+    }
+    
+    private int getSmallerorEqual(int target, int m, int n){
+        int r = m, c = 1;
+        int cnt = 0;
+        while(r >= 1 && c <= n){
+            if(r * c <= target){
+                cnt += r;
+                c ++;
+            } else{
+                r --;
+            }
+        }
+        
+        return cnt;
+    }
+}
