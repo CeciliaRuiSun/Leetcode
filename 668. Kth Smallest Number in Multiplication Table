@@ -5,13 +5,13 @@ class Solution {
     public int findKthNumber(int m, int n, int k) {
         int lo = 0, hi = m*n;
         
-        while(lo <= hi){
+        while(lo < hi){
             int mid = lo + (hi - lo)/2;
             int cnt = getSmallerorEqual(mid, m, n);
-            if(cnt < k){
-                lo = mid + 1;
+            if(cnt >= k){
+                hi = mid;
             } else{
-                hi = mid - 1;   // ? why not hi = mid?
+                lo = mid + 1;   
             }
         }
         
