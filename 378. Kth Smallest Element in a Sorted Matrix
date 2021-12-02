@@ -1,0 +1,63 @@
+// solution 1: use priority queue
+
+class Solution { 
+    public int kthSmallest(int[][] matrix, int k) {
+        int m = matrix.length, n = matrix[0].length; // For general, the matrix need not be a square
+        PriorityQueue<Integer> maxHeap = new PriorityQueue<>((o1, o2) -> Integer.compare(o2, o1));
+        for (int r = 0; r < m; ++r) {
+            for (int c = 0; c < n; ++c) {
+                maxHeap.add(matrix[r][c]);
+                if (maxHeap.size() > k) maxHeap.poll();       // there is no break here, keep pq capacity to k, continue until all elements are traversed
+            }
+        }
+        return maxHeap.poll();
+    }
+}
+
+
+// solution2: use binary search
+class Solution { 
+    public int kthSmallest(int[][] matrix, int k) {
+        long lo = matrix[0][0], hi = Integer.MAX_VALUE;
+        
+        while(lo <= hi){
+            long mid = lo + (hi - lo)/2;
+            int cnt = getSmallerorEqual(mid, matrix);
+            
+            if(cnt < k){
+                lo = mid + 1;
+            } else{
+                hi = mid - 1;
+            }
+        }
+        
+        return (int)lo; 
+    }
+        // The binary search used here is to shrink the search range roughly by half. When the search range has only one element, the result is that element.
+        
+        // The element found by this algorithm has to be in the input matrix because the range converges to the minimum value that satisfies (or most closely follows) the condition count == k. The first value to satisfy count == k must be found in the range if exists. 
+        
+        // If the mid variable converges to an integer, a_mid, which is not the kth smallest element, a_k, in the array.
+        //Then, a_mid should be bigger than a_k, if not the count will be less than k and a_mid will increase.
+        //Therefore, lo<=a_k<a_mid<=hi will be true, and the loop ends at lo=hi, which means a_mid has to equal to a_k.
+  
+    
+    private int getSmallerorEqual(long target, int[][] matrix){
+        int len = matrix.length;
+        int r = len - 1, c = 0;
+        int cnt = 0;
+        while(r >= 0 && c < len){
+            if(matrix[r][c] <= target){
+                cnt += r + 1;
+                c ++;
+            } else{
+                r -- ;
+            }
+        }
+        
+        return cnt;
+    }
+    
+    
+    
+}
