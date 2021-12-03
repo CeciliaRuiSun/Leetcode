@@ -1,0 +1,23 @@
+// Runtime: 20 ms, faster than 48.22%
+// Memory Usage: 40.3 MB, less than 82.22% 
+
+class Solution {
+    public List<List<Integer>> combine(int n, int k) {
+        List<List<Integer>> ret = new ArrayList<>();
+        helper(ret, new ArrayList<>(), n, k, 1);
+        return ret;
+    }
+    
+    private void helper(List<List<Integer>> ret, List<Integer> cur, int n, int k, int pointer){
+        if(cur.size() == k){
+            ret.add(new ArrayList<>(cur));
+            return;
+        }
+        
+        for(int i = pointer; i <= n; i++){
+            cur.add(i);
+            helper(ret, cur, n, k, i + 1);
+            cur.remove(cur.size() - 1);
+        }
+    }
+}
