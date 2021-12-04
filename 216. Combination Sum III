@@ -1,0 +1,29 @@
+// Runtime: 0 ms, faster than 100.00%
+// Memory Usage: 36.5 MB, less than 77.41%
+
+class Solution {
+    public List<List<Integer>> combinationSum3(int k, int n) {
+        List<List<Integer>> ret = new ArrayList<>();
+        helper(ret, new ArrayList<>(), k, n, 1);
+        return ret;
+    }
+    
+    private void helper(List<List<Integer>> ret, List<Integer> cur, int k, int target, int pointer){
+        if(cur.size() == k){
+            if(target == 0){
+                ret.add(new ArrayList<>(cur));
+            }
+            return;
+        }
+        
+        if(target <= 0){
+            return;
+        }
+        
+        for(int i = pointer; i <=9; i++){
+            cur.add(i);
+            helper(ret, cur, k, target - i, i + 1);
+            cur.remove(cur.size() - 1);
+        }
+    }
+}
