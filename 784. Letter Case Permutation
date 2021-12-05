@@ -1,0 +1,42 @@
+// Runtime: 6 ms, faster than 42.00%
+// Memory Usage: 39.3 MB, less than 98.48%
+
+class Solution {
+    public List<String> letterCasePermutation(String s) {
+        List<String> ret = new ArrayList<>();
+        helper(ret, "", s, 0);
+        return ret;
+    }
+    
+    private void helper(List<String> ret, String cur, String s, int pointer){
+        if(cur.length() == s.length()){
+            ret.add(cur);
+            return;
+        }       
+        
+        char c = s.charAt(pointer);
+        helper(ret, cur + c, s, pointer + 1);
+        if(!isNum(c)){
+            helper(ret, cur + transform(c), s, pointer + 1);            
+        }
+    }
+    
+    private char transform(char letter){
+        int asc = letter - '0';
+        if(asc >= 49){
+            // a - z
+            return Character.toUpperCase(letter);
+        } else{
+            return Character.toLowerCase(letter);
+        }
+    }
+    
+    private boolean isNum(char n){
+        int asc = n - '0';
+        if(asc <= 9){
+            return true;
+        } else{
+            return false;
+        }
+    }
+}
