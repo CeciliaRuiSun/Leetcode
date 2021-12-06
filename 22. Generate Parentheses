@@ -1,0 +1,26 @@
+// Runtime: 1 ms, faster than 76.28%
+// Memory Usage: 39.4 MB, less than 41.56%
+
+class Solution {
+    public List<String> generateParenthesis(int n) {
+        List<String> ret = new ArrayList<>();
+        helper(ret, "", n, 0, 0);
+        return ret;
+    }
+    
+    private void helper(List<String> ret, String cur, int n, int cntOpen, int cntClose){
+        if(cur.length() == 2 * n){
+            ret.add(cur);
+            return;
+        }
+        
+        if(cntOpen == n){
+            helper(ret, cur + ")", n, cntOpen, cntClose + 1);
+        } else if(cntOpen < n && cntOpen == cntClose){
+            helper(ret, cur + "(", n, cntOpen + 1, cntClose);
+        } else if(cntOpen < n && cntOpen > cntClose){
+            helper(ret, cur + "(", n, cntOpen + 1, cntClose);
+            helper(ret, cur + ")", n, cntOpen, cntClose + 1);
+        }
+    }
+}
