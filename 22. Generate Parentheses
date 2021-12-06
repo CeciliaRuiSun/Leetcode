@@ -22,5 +22,17 @@ class Solution {
             helper(ret, cur + "(", n, cntOpen + 1, cntClose);
             helper(ret, cur + ")", n, cntOpen, cntClose + 1);
         }
+        
+        /*
+        
+        if(cntOpen < n){
+            helper(ret, cur + "(", n, cntOpen + 1, cntClose);
+        }
+        
+        if(cntClose < cntOpen){
+            helper(ret, cur + ")", n, cntOpen, cntClose + 1);
+        }
+        
+        */
     }
 }
