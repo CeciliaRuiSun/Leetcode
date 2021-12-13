@@ -1,0 +1,27 @@
+// Runtime: 2 ms, faster than 99.91%
+// Memory Usage: 46.3 MB, less than 97.14%
+
+// Consider trust as a graph, all pairs are directed edge.
+// The point with in-degree - out-degree = N - 1 become the judge
+
+class Solution {
+    public int findJudge(int n, int[][] trust) {
+        int[] cnt = new int[n+1];
+        
+        for(int i = 0; i < trust.length; i ++){
+            int outDegree = trust[i][0];
+            int inDegree = trust[i][1];
+            
+            cnt[outDegree] --;
+            cnt[inDegree] ++;
+        }
+        
+        for(int j = 1; j < cnt.length; j ++){
+            if(cnt[j] == n - 1){
+                return j;
+            }
+        }
+        
+        return -1;
+    }
+}
