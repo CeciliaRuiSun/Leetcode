@@ -1,0 +1,54 @@
+// Runtime: 13 ms, faster than 95.63%
+// Memory Usage: 94.8 MB, less than 93.91%
+
+class Solution {
+    public boolean validPath(int n, int[][] edges, int start, int end) {
+        QuickUnion graph = new QuickUnion(n);
+        
+        for(int i = 0; i < edges.length; i++){
+            graph.connect(edges[i][0], edges[i][1]);
+            
+        }
+       
+        return graph.isConnect(start, end);
+    }
+}
+
+class QuickUnion{
+    private int[] parent;
+    
+    public QuickUnion(int N){
+        parent = new int[N];
+        for(int i = 0; i < N; i ++){
+            parent[i] = -1;
+        }
+    }
+    
+    public int find(int p){
+        // find parent
+        int r = p;
+        while(parent[r] >= 0){
+            r = parent[r];
+        }
+        return r;
+    }
+    
+    public void connect(int m, int n){
+        int mParent = find(m);
+        int nParent = find(n);
+        if(mParent != nParent){
+            if(parent[nParent] == -1){
+                parent[mParent] = nParent; 
+            } else{
+                parent[nParent] = mParent; 
+            }
+        }
+    }
+    
+    public boolean isConnect(int m, int n){
+
+        return find(m) == find(n);
+    }
+    
+}
+
