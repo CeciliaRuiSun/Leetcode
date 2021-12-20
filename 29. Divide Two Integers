@@ -1,0 +1,29 @@
+// https://leetcode.com/problems/divide-two-integers/discuss/13467/Very-detailed-step-by-step-explanation-(Java-solution)
+
+class Solution {
+    public int divide(int dividend, int divisor) {
+        
+        boolean isNegative = (dividend < 0 && divisor > 0) || (dividend > 0 && divisor < 0);        
+        long absDividend = Math.abs((long)dividend);
+        long absDivisor = Math.abs((long)divisor);
+        
+        long ret = 0;
+
+        while(absDividend >= absDivisor){
+            long temp = absDivisor, count = 1;
+            
+            while(absDividend >= temp){
+                temp <<= 1;
+                count <<= 1;
+            }
+            
+            ret += count >> 1;
+            absDividend -= temp >> 1;            
+        }
+        
+        
+        return isNegative? (int)-ret: ret > Integer.MAX_VALUE? Integer.MAX_VALUE: (int)ret;
+    }
+    
+    
+}
