@@ -1,0 +1,30 @@
+// Runtime: 2 ms, faster than 99.98%
+// Memory Usage: 47.2 MB, less than 77.46%
+
+class Solution {
+    public int numIslands(char[][] grid) {
+        int row = grid.length, col = grid[0].length;
+        int cnt = 0;
+        
+        for(int i = 0; i < row; i++){
+            for(int j = 0; j < col; j ++){
+                if(grid[i][j] == '1'){
+                    dfsFill(grid, i, j);
+                    cnt ++;
+                }
+            }
+        }
+        
+        return cnt;
+    }
+    
+    private void dfsFill(char[][] grid, int i, int j){
+        if(i >= 0 && i < grid.length && j >= 0 && j < grid[0].length && grid[i][j] == '1'){
+            grid[i][j] = '0';
+            dfsFill(grid, i, j - 1);
+            dfsFill(grid, i - 1, j);
+            dfsFill(grid, i, j + 1);
+            dfsFill(grid, i + 1, j);
+        }
+    }
+}
