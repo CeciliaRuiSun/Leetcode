@@ -1,0 +1,25 @@
+// Runtime: 0 ms, faster than 100.00%
+// Memory Usage: 40 MB, less than 44.93%
+
+class Solution {
+    public int[][] floodFill(int[][] image, int sr, int sc, int newColor) {
+        int oldNum = image[sr][sc];
+        boolean[][] visited = new boolean[image.length][image[0].length];
+        helper(image, visited, sr, sc, newColor, oldNum);
+        return image;
+    }
+    
+    private void helper(int[][] image, boolean[][] visited, int sr, int sc, int newColor, int oldNum){
+        // System.out.println("sr: " + sr + " sc: " + sc);
+        if(sr >= 0 && sr < image.length && sc >= 0 && sc < image[0].length && !visited[sr][sc] && image[sr][sc] == oldNum){
+            
+            image[sr][sc] = newColor;
+            visited[sr][sc] = true;
+            helper(image, visited,sr - 1, sc, newColor, oldNum);
+            helper(image, visited,sr + 1, sc, newColor, oldNum);
+            helper(image, visited,sr, sc - 1, newColor, oldNum);
+            helper(image, visited,sr, sc + 1, newColor, oldNum);
+            
+        }
+    }
+}
