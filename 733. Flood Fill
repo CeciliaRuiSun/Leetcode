@@ -23,3 +23,34 @@ class Solution {
         }
     }
 }
+
+
+// solution 2
+class Solution {
+    public int[][] floodFill(int[][] image, int sr, int sc, int newColor) {
+        if (image[sr][sc] == newColor) return image;       // !! if we don't use boolean[][] visited, we have to add this line, or the loop won't end if oldNum = newColor
+        int oldNum = image[sr][sc];
+        helper(image, sr, sc, newColor, oldNum);
+        return image;
+    }
+    
+    private void helper(int[][] image, int sr, int sc, int newColor, int oldNum){
+        
+        /*if(sr < 0 || sr >= image.length || sc < 0 || sc >= image[0].length || image[sr][sc] != oldNum){ return; }            
+        image[sr][sc] = newColor;
+        helper(image, sr - 1, sc, newColor, oldNum);
+        helper(image, sr + 1, sc, newColor, oldNum);
+        helper(image, sr, sc - 1, newColor, oldNum);
+        helper(image, sr, sc + 1, newColor, oldNum);
+       */
+        
+        if(sr >= 0 && sr < image.length && sc >= 0 && sc < image[0].length && image[sr][sc] == oldNum){            
+            image[sr][sc] = newColor;
+            helper(image, sr - 1, sc, newColor, oldNum);
+            helper(image, sr + 1, sc, newColor, oldNum);
+            helper(image, sr, sc - 1, newColor, oldNum);
+            helper(image, sr, sc + 1, newColor, oldNum);            
+        }
+    }
+}
+
