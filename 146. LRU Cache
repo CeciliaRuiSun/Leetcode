@@ -1,0 +1,88 @@
+// Runtime: 49 ms, faster than 57.59% 
+// Memory Usage: 114.2 MB, less than 45.82%
+
+class LRUCache {
+    
+    class Node{
+        int key;
+        int value;
+        Node prev;
+        Node next;
+        
+        public Node(){
+            
+        }
+        
+        public Node(int k, int v){
+            this.key = k;
+            this.value = v;
+        }
+    }
+    
+    
+    
+    final Node head = new Node();
+    final Node tail = new Node();
+    Map<Integer, Node> map;
+    int cacheCapacity;
+    
+    private void addNode(Node node){
+        // always add node next to head
+        head.next.prev = node;
+        node.next = head.next;
+        head.next = node;
+        node.prev = head;
+    }
+    
+    private void removeNode(Node node){
+        // remove node from DLlist
+        node.next.prev = node.prev;
+        node.prev.next = node.next;
+    }
+    
+    private void popNode(){
+        // remove the node before tail
+        tail.prev.prev.next = tail;
+        tail.prev = tail.prev.prev;
+    }
+    
+    public LRUCache(int capacity) {
+        map = new HashMap(capacity);
+        this.cacheCapacity = capacity;
+        head.next = tail;
+        tail.prev = head;
+    }
+    
+    public int get(int key) {
+        if(map.containsKey(key)){
+            Node node = map.get(key);
+            removeNode(node);
+            addNode(node);
+            return node.value;
+        }
+        return -1;
+    }
+    
+    public void put(int key, int value) {
+        Node node = new Node(key, value);
+        if(map.containsKey(key)){
+            removeNode(map.get(key));
+            map.put(key, node);
+            addNode(node);
+        } else{
+            if(map.size() == cacheCapacity){
+                map.remove(tail.prev.key);
+                popNode();
+            }
+            map.put(key, node);
+            addNode(node);
+        }
+    }
+}
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache obj = new LRUCache(capacity);
+ * int param_1 = obj.get(key);
+ * obj.put(key,value);
+ */
