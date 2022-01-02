@@ -1,4 +1,4 @@
-// Runtime: 34 ms, faster than 25.39% 
+Runtime: 29 ms, faster than 36.78% 
 // Memory Usage: 47.1 MB, less than 21.54%
 
 class Solution {
@@ -11,19 +11,12 @@ class Solution {
             String domain1 = s.substring(space + 1);
             map.put(domain1, map.getOrDefault(domain1, 0) + freq);
             
-            int comma1 = domain1.indexOf('.');
-            String domain2 = domain1.substring(comma1 + 1);
-            map.put(domain2, map.getOrDefault(domain2, 0) + freq);
-            
-            int comma2 = domain2.indexOf('.');
-            if(comma2 == -1){
-                continue;
-            } else{
-                String domain3 = domain2.substring(comma2 + 1);
-                map.put(domain3, map.getOrDefault(domain3, 0) + freq);
-            }
-            
-        
+            for(int i = 0; i < domain1.length(); i++){
+                if(domain1.charAt(i) == '.'){
+                    String subDomain = domain1.substring(i + 1);
+                    map.put(subDomain, map.getOrDefault(subDomain, 0)  + freq);
+                }
+            }        
         }
         
         List<String> ret = new ArrayList<>();
