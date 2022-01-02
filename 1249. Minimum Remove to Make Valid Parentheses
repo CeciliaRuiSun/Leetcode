@@ -1,0 +1,30 @@
+// Runtime: 14 ms, faster than 82.82%
+// Memory Usage: 39.6 MB, less than 75.88%
+
+class Solution {
+    public String minRemoveToMakeValid(String s) {
+        Stack<Integer> stk = new Stack<>();
+        StringBuilder sb = new StringBuilder();
+        boolean[] isValid = new boolean[s.length()];  //mark valid chars
+        
+        for(int i = 0; i < s.length(); i++){
+            char c = s.charAt(i);
+            if(c == '('){
+                stk.push(i);
+            } else if(c == ')'){
+                if(!stk.isEmpty()){
+                    isValid[i] = true;
+                    isValid[(int) stk.pop()] = true;
+                }
+            } else{
+                isValid[i] = true;
+            }
+        }
+        
+        for(int i = 0; i < s.length(); i++){
+            if(isValid[i]) sb.append(s.charAt(i));
+        }
+        
+        return sb.toString();
+    }
+}
