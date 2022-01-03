@@ -1,0 +1,31 @@
+// Runtime: 19 ms, faster than 7.21% 
+// Memory Usage: 42.6 MB, less than 6.24%
+
+class Solution {
+    public int minMeetingRooms(int[][] intervals) {
+        Arrays.sort(intervals, (i1, i2) -> Integer.compare(i1[0], i2[0]));
+        int cnt = 0;
+        PriorityQueue<Integer> heap = new PriorityQueue<>();
+      
+        for(int[] interval: intervals){
+            if(heap.isEmpty()){
+                heap.add(interval[1]);
+                cnt = 1;
+                continue;
+            }
+            
+            int min = heap.poll();
+            if(min <= interval[0]){
+               // do nothing
+            } else{
+                cnt ++;
+                heap.add(min);
+            }
+            
+            heap.add(interval[1]);
+        }
+        
+        return cnt;
+        
+    }
+}
