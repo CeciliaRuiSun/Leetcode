@@ -1,5 +1,5 @@
-// Runtime: 1363 ms, faster than 5.05%
-// Memory Usage: 191.2 MB, less than 5.03%
+// Runtime: 53 ms, faster than 26.94% 
+// Memory Usage: 97.8 MB, less than 16.24%
 
 class RandomizedSet {
     // use map to store value and its location in ls, also add value to ls
@@ -22,7 +22,7 @@ class RandomizedSet {
     }
     
     // Removes an item val from the set if present. Returns true if the item was present, false otherwise.
-    public boolean remove(int val) {
+    /* public boolean remove(int val) {
         if(!map.containsKey(val)) return false;
         int index = map.get(val);
         ls.remove(index);
@@ -34,20 +34,27 @@ class RandomizedSet {
         }
         return true;
     }
+    */
+    public boolean remove(int val) {
+        if(!map.containsKey(val)) return false;
+        int index = map.get(val);
+        map.remove(val);
+        if(index < ls.size() - 1){
+            int lastItem = ls.get(ls.size() - 1);
+            ls.set(index, lastItem);
+            map.put(lastItem, index);
+        }
+        ls.remove(ls.size() - 1);
+        return true;
+    }
+    
     
     // Returns a random element from the current set of elements.
     public int getRandom() {
         return ls.get(rand.nextInt(ls.size()));
     }
     
-    public static void main(String[] args){
-    RandomizedSet obj = new RandomizedSet();
-    boolean param_1 = obj.insert(0);
-    boolean param_2 = obj.insert(1);
-    boolean param_3 = obj.remove(0);
-    boolean param_4 = obj.insert(2);
-    boolean param_5 = obj.remove(1);
-    int num = obj.getRandom();
+   
 }
 }
 
