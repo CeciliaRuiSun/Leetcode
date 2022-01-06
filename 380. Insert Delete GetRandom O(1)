@@ -1,0 +1,62 @@
+// Runtime: 1363 ms, faster than 5.05%
+// Memory Usage: 191.2 MB, less than 5.03%
+
+class RandomizedSet {
+    // use map to store value and its location in ls, also add value to ls
+    
+    Map<Integer, Integer> map;
+    List<Integer> ls;
+    java.util.Random rand = new java.util.Random();
+    
+    public RandomizedSet() {
+        map = new HashMap<>();
+        ls = new ArrayList<>();
+    }
+    
+    // Inserts an item val into the set if not present. Returns true if the item was not present, false otherwise.
+    public boolean insert(int val) {
+        if(map.containsKey(val)) return false;
+        map.put(val, ls.size());
+        ls.add(val);
+        return true;
+    }
+    
+    // Removes an item val from the set if present. Returns true if the item was present, false otherwise.
+    public boolean remove(int val) {
+        if(!map.containsKey(val)) return false;
+        int index = map.get(val);
+        ls.remove(index);
+        map.remove(val);
+        for(int k: map.keySet()){
+            if(map.get(k) > index){
+                map.put(k, map.get(k) - 1);
+            }
+        }
+        return true;
+    }
+    
+    // Returns a random element from the current set of elements.
+    public int getRandom() {
+        return ls.get(rand.nextInt(ls.size()));
+    }
+    
+    public static void main(String[] args){
+    RandomizedSet obj = new RandomizedSet();
+    boolean param_1 = obj.insert(0);
+    boolean param_2 = obj.insert(1);
+    boolean param_3 = obj.remove(0);
+    boolean param_4 = obj.insert(2);
+    boolean param_5 = obj.remove(1);
+    int num = obj.getRandom();
+}
+}
+
+
+
+/**
+ * Your RandomizedSet object will be instantiated and called as such:
+ * RandomizedSet obj = new RandomizedSet();
+ * boolean param_1 = obj.insert(val);
+ * boolean param_2 = obj.remove(val);
+ * int param_3 = obj.getRandom();
+ */
