@@ -1,0 +1,27 @@
+// Runtime: 13 ms, faster than 41.53%
+// Memory Usage: 53.2 MB, less than 20.58% 
+
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        Map<String, List<String>> map = new HashMap<>();
+        
+        for(String s: strs){
+            char[] freq = new char[26];
+            for(char c: s.toCharArray()){
+                freq[c - 'a'] ++;
+            }
+            String key = String.valueOf(freq);
+            if(!map.containsKey(key)){
+                map.put(key, new ArrayList<>());
+            }
+            map.get(key).add(s);
+        }
+        
+        List<List<String>> ret = new ArrayList<>();
+        for(List<String> value: map.values()){
+            ret.add(value);
+        }
+        
+        return ret;
+    }
+}
