@@ -1,0 +1,40 @@
+// Runtime: 97 ms, faster than 75.37%
+// Memory Usage: 37 MB, less than 81.19%
+
+class Solution {
+    public boolean exist(char[][] board, String word) {
+        boolean[][] visited = new boolean[board.length][board[0].length];
+        for(int i = 0; i < board.length; i ++){
+            for(int j = 0 ; j < board[0].length; j ++){
+               if(board[i][j] == word.charAt(0)){
+                   if(lookForWord(board, visited, word, i, j, 0)){
+                       return true;
+                   } else{
+                       continue;
+                   }
+               } 
+            }
+        }
+        return false;
+    }
+    
+    private boolean lookForWord(char[][] board, boolean[][] visited, String word, int i, int j, int p){
+        if(p == word.length()) return true;
+        if(i < 0 || i >= board.length || j < 0 || j >= board[0].length) return false;
+        //if(board[i][j] != word.charAt(p)) return false;
+        
+        if(board[i][j] == word.charAt(p) && !visited[i][j]){
+            visited[i][j] =  true;
+            if(lookForWord(board, visited, word, i - 1, j, p + 1) ||
+                lookForWord(board, visited, word, i + 1, j, p+1) ||
+                lookForWord(board, visited, word, i, j -1, p + 1) ||
+                lookForWord(board, visited, word, i, j + 1, p + 1)){
+                return true;
+            }
+            
+            visited[i][j] = false;
+        }
+        
+        return false;
+    }
+}
