@@ -1,0 +1,38 @@
+// Runtime: 0 ms, faster than 100.00%
+// Memory Usage: 38.9 MB, less than 9.87%
+
+class Solution {
+    public List<Integer> spiralOrder(int[][] matrix) {
+        List<Integer> ret = new ArrayList<>();
+        int n = matrix.length, m = matrix[0].length;
+        int left = 0, up = 0, right = m - 1, down = n - 1;
+        
+        while(ret.size() < n * m){
+            // because we don't know when all elements are read, we will check ret.size() < n * m in every loop. e.g when it's a 4 dimension matrix, even when all elements are read, the rest for loop may still valid and add extra elements to ret.
+            // left to right
+            for(int i = left; i <= right && ret.size() < n * m; i ++){
+                ret.add(matrix[up][i]);
+            }
+            
+            // up to down
+            for(int j = up + 1; j <= down && ret.size() < n * m; j ++){
+                ret.add(matrix[j][right]);
+            }
+            
+            // right to left
+            for(int i = right - 1; i >= left && ret.size() < n * m; i --){
+                ret.add(matrix[down][i]);
+            }
+            
+            
+            // down to up
+            for(int j = down - 1; j > up && ret.size() < n * m; j --){
+                ret.add(matrix[j][left]);
+            }
+                        
+            up ++; right --; down --; left++;
+        }
+        
+        return ret;
+    }
+}
