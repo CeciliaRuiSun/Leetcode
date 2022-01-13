@@ -1,0 +1,20 @@
+// Runtime: 19 ms, faster than 18.21% 
+// Memory Usage: 46 MB, less than 22.79%
+
+class Solution {
+    public int countBinarySubstrings(String s) {
+        int cur = 1, pre = 0, ret = 0;
+        
+        for(int i = 1; i < s.length(); i ++){
+            if(s.charAt(i) == s.charAt(i - 1)){
+                cur ++;
+            } else{
+                ret += Math.min(cur, pre);
+                pre = cur;
+                cur = 1;
+            }
+        }
+        
+        return ret + Math.min(cur, pre);
+    }
+}
