@@ -24,3 +24,49 @@ class Solution {
         return ret;
     }
 }
+
+
+// solution2 bucket sort
+// Runtime: O(n) 23 ms, faster than 21.44% 
+// Memory Usage:  O(n) 47.6 MB, less than 16.86%
+class Solution {
+    public int[] topKFrequent(int[] nums, int k) {
+        int[] ret = new int[k];
+        List<Integer>[] buckets = new List[nums.length + 1];
+        
+        Map<Integer, Integer> map = new HashMap<>();        
+        for(int n: nums){
+            map.put(n, map.getOrDefault(n, 0) + 1);
+        }
+        
+        // put frequency to buckets array
+        for(int key: map.keySet()){
+            int v = map.get(key);
+            if(buckets[v] == null){
+                buckets[v] = new LinkedList<>();
+            }
+            buckets[v].add(key);
+        }
+        
+        // extract top k frequent items from buckets
+        int cnt = k;
+        for(int i = buckets.length - 1; i >= 0; i --){
+            if(cnt == 0){
+                break;
+            }
+            List<Integer> temp = buckets[i];
+            if(temp == null){
+                continue;
+            } else{
+                for(int j = 0; j < temp.size(); j ++){
+                    ret[cnt - 1] = temp.get(j);
+                    cnt --;
+                    if(cnt == 0) break;
+                }
+            }
+        }
+    
+        
+        return ret;
+    }
+}
