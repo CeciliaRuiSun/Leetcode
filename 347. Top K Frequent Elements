@@ -1,0 +1,26 @@
+// Runtime: 30 ms, faster than 9.69%
+// Memory Usage: 46.3 MB, less than 40.40%
+
+class Solution {
+    public int[] topKFrequent(int[] nums, int k) {
+        int[] ret = new int[k];
+        Map<Integer, Integer> map = new HashMap<>();        
+        for(int n: nums){
+            map.put(n, map.getOrDefault(n, 0) + 1);
+        }
+        
+        PriorityQueue<Map.Entry<Integer, Integer>> minHeap = new PriorityQueue<>((a,b) -> Integer.compare(a.getValue(), b.getValue()));
+        for(Map.Entry<Integer, Integer> entry: map.entrySet()){
+            minHeap.add(entry);
+            if(minHeap.size() > k){
+                minHeap.poll();
+            }
+        }
+        
+        for(int i = 0; i < k; i ++){
+            ret[i] = minHeap.poll().getKey();
+        }
+        
+        return ret;
+    }
+}
