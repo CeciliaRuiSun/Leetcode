@@ -1,0 +1,46 @@
+// Runtime: 87 ms, faster than 87.33% 
+// Memory Usage: 69 MB, less than 61.03%
+
+class MedianFinder {
+    PriorityQueue<Integer> small;   // maxHeap
+    PriorityQueue<Integer> large;   // minHeap
+    
+    
+    
+    public MedianFinder() {
+        this.small = new PriorityQueue<>((a,b) -> Integer.compare(b, a)); 
+        this.large = new PriorityQueue<>();
+    }
+    
+    public void addNum(int num) {
+        small.add(num);
+        
+        // size difference is within 1
+        if(small.size() - large.size() == 2){
+            large.add(small.poll());
+        } 
+        
+        // all elements in small are smaller than elements in large
+        if(small.size()> 0 && large.size() > 0 && small.peek() > large.peek()){
+            large.add(small.poll());
+            small.add(large.poll());
+        }
+    }
+    
+    public double findMedian() {
+        if(small.size() == large.size()){
+            return ((double) small.peek() + (double)large.peek()) / 2;
+        } else if(small.size() > large.size()){
+            return (double) small.peek();
+        } else {
+            return (double) large.peek();
+        }
+    }
+}
+
+/**
+ * Your MedianFinder object will be instantiated and called as such:
+ * MedianFinder obj = new MedianFinder();
+ * obj.addNum(num);
+ * double param_2 = obj.findMedian();
+ */
