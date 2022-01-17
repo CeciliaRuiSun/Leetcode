@@ -17,3 +17,47 @@ class Solution {
     
 
 }
+
+// how to debug
+class Solution {
+    public double myPow(double x, int n) {
+        if(n == 0) return 1;
+        if(n == Integer.MIN_VALUE){
+            x = x * x;
+            n = n/2;
+        }
+        
+        if(n < 0){
+            n = -n;
+            x = 1/x;
+        }
+        
+        System.out.println("n: " + n + " x: " + x );
+        double var = myPow(x*x, n/2);
+        System.out.println(" var: " + var);
+        
+        
+        return (n % 2 == 0)? var: x * var;
+    }
+}
+
+
+// solution 2, much easier to understand
+
+class Solution {
+    public double myPow(double x, int n) {
+        if(n == 0) return 1;
+        if(n == Integer.MIN_VALUE){
+            x = x * x;
+            n = n/2;
+        }
+        
+        if(n < 0){
+            n = -n;
+            x = 1/x;
+        }
+        
+        double var = myPow(x, n/2);        
+        return (n % 2 == 0)? var*var: x * var*var;
+    }
+}
