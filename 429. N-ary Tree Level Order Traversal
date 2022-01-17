@@ -48,6 +48,8 @@ class Solution {
 
 
 // bfs
+// Runtime: 4 ms, faster than 36.98% 
+// Memory Usage: 44.3 MB, less than 14.72%
 class Solution {
     public List<List<Integer>> levelOrder(Node root) {
         List<List<Integer>> ret =  new LinkedList<>();
