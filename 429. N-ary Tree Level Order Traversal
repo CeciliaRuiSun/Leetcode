@@ -45,3 +45,31 @@ class Solution {
         
     }
 }
+
+
+// bfs
+class Solution {
+    public List<List<Integer>> levelOrder(Node root) {
+        List<List<Integer>> ret =  new LinkedList<>();
+        if(root == null) return ret;
+        
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(root);
+        
+        while(!queue.isEmpty()){
+            List<Integer> curLevel = new LinkedList<>();
+            int size = queue.size();
+            for(int i = 0; i < size; i ++){
+                Node n = queue.poll();
+                curLevel.add(n.val);
+                for(Node node: n.children){
+                    queue.add(node);
+                }
+            }
+            ret.add(curLevel);
+        }
+        
+        return ret;
+    }
+
+}
