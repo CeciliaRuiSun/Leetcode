@@ -45,20 +45,16 @@ class Solution {
 
 class Solution {
     public List<Integer> postorder(Node root) {
-        return helper(new ArrayList<>(), root);
-    }
-    
-    private List<Integer> helper(List<Integer> ret, Node root){
-        if(root == null){
-            return ret;
-        }
-        
-        for(Node n: root.children){
-            helper(ret, n);
-        }
-        
-        ret.add(root.val);
-        
+        List<Integer> ret = new LinkedList<>();
+        dfs(root, ret);       
         return ret;
     }
+    
+    private void dfs(Node root, List<Integer> ls){
+        if(root == null) return;        
+        for(Node child: root.children){
+            dfs(child, ls);
+        }       
+        ls.add(root.val);        
+    }        
 }
