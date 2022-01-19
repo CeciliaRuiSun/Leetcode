@@ -1,0 +1,56 @@
+// Runtime: 3 ms, faster than 36.97%
+// Memory Usage: 56.6 MB, less than 39.18%
+
+class Solution {
+    public int[] productExceptSelf(int[] nums) {
+        // ret[i] = leftProduct[i] * rightProduct[i]
+        
+        int[] leftProduct = new int[nums.length];
+        int[] rightProduct = new int[nums.length];
+        int[] ret = new int[nums.length];
+        
+        // first element's leftProduct is 1; last element's rightProduct is 1
+        leftProduct[0] = 1;
+        rightProduct[nums.length - 1] = 1;
+        
+        for(int i = 1; i < nums.length; i ++){
+            leftProduct[i] = leftProduct[i - 1] * nums[i - 1];
+        }
+        
+        for(int i = nums.length - 2; i >=0 ; i--){
+            rightProduct[i] = rightProduct[i + 1] * nums[i + 1];
+        }
+        
+        for(int i = 0; i < nums.length; i ++){
+            ret[i] = leftProduct[i] * rightProduct[i];
+        }
+        
+        return ret;
+    }
+}
+
+
+// solution 2, use O(1) space (excluding return array space)
+class Solution {
+    public int[] productExceptSelf(int[] nums) {
+        // ret[i] = leftProduct[i] * rightProduct[i]
+        // let ret performs functions of leftProduct and rightProduct by itself
+        
+        int[] ret = new int[nums.length];
+        
+        // get left product
+        ret[0] = 1;  // 1st element's left product is 1;
+        for(int i = 1; i < nums.length; i ++){
+            ret[i] = ret[i - 1] * nums[i - 1];
+        }
+        
+        int rightProduct = 1;
+        for(int i = nums.length - 2; i >= 0; i --){
+            rightProduct *= nums[i + 1];
+            ret[i] *= rightProduct;
+        }
+        
+        
+        return ret;
+    }
+}
