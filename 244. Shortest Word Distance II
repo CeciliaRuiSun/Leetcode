@@ -1,0 +1,34 @@
+class WordDistance {
+    Map<String, List<Integer>> map = new HashMap<>();
+    
+    public WordDistance(String[] wordsDict) {
+        for(int i = 0; i < wordsDict.length; i ++){
+            String s = wordsDict[i];
+            map.putIfAbsent(s, new LinkedList<>());
+            map.get(s).add(i);
+        }
+    }
+    
+    public int shortest(String word1, String word2) {
+        List<Integer> ls1 = map.get(word1);
+        List<Integer> ls2 = map.get(word2);
+        
+        int ret = Integer.MAX_VALUE;
+        for(int i = 0, j = 0; i < ls1.size() && j < ls2.size();){
+            ret = Math.min(ret, Math.abs(ls1.get(i) - ls2.get(j)));
+            if(ls1.get(i) < ls2.get(j)){
+                i ++;
+            } else{
+                j ++;
+            }
+        }
+        
+        return ret;
+    }
+}
+
+/**
+ * Your WordDistance object will be instantiated and called as such:
+ * WordDistance obj = new WordDistance(wordsDict);
+ * int param_1 = obj.shortest(word1,word2);
+ */
