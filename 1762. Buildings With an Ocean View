@@ -1,0 +1,21 @@
+class Solution {
+    public int[] findBuildings(int[] heights) {
+        ArrayList<Integer> ret = new ArrayList<>();
+        int locMax = heights[heights.length - 1];
+        ret.add(heights.length -1);
+        
+        for(int i = heights.length - 2; i >= 0; i --){
+            if(heights[i] > locMax){
+                ret.add(i);
+                locMax = heights[i];
+            }
+        }
+        
+        int[] rev = new int[ret.size()];
+        for(int i = ret.size() - 1; i >= 0; i --){
+            rev[ret.size() - 1 - i] = ret.get(i);
+        }
+        
+        return rev;
+    }
+}
