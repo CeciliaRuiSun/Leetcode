@@ -20,9 +20,9 @@ class Solution1 {
     private boolean helper(TreeNode left, TreeNode right){
         if(left != null && right != null){
             if(left.val == right.val){
-                return helper(left.left, right.right) && helper(left.right, right.left);} else{
+                return helper(left.left, right.right) && helper(left.right, right.left);} 
+            }else{
                 return false;
-            }
         } else if(left == null && right == null){
             return true;
         } else {
