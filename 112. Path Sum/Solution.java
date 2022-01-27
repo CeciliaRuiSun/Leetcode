@@ -8,8 +8,6 @@ class Solution {
             return true;
         }       
         
-        targetSum = targetSum - root.val;
-        
         return hasPathSum(root.left,targetSum) || hasPathSum(root.right,targetSum);
     }
 }
