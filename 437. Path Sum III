@@ -40,3 +40,27 @@ class Solution {
         return cntRight;
     }
 }
+
+
+// 
+class Solution { 
+    int cnt = 0;
+    
+    public int pathSum(TreeNode root, int targetSum) {
+        if(root == null) return cnt;
+        dfs(root, targetSum);
+        pathSum(root.left, targetSum);
+        pathSum(root.right, targetSum);
+        return cnt;
+    }
+    
+    private void dfs(TreeNode root, int targetSum){
+        if(root == null) return;
+        if(root.val == targetSum){
+            cnt ++;
+        }
+        
+        dfs(root.left, targetSum - root.val);
+        dfs(root.right, targetSum - root.val);
+    }
+}
