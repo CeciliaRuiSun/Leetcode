@@ -1,5 +1,5 @@
-// Runtime: 21 ms, faster than 37.59%
-// Memory Usage: 38.7 MB, less than 91.55%
+// Runtime: 21 ms, faster than 37.59%  O(n^2) to O(nlogn)
+// Memory Usage: 38.7 MB, less than 91.55%  O(n) to O(logn)
 
 class Solution {
     private int ret = 0;
