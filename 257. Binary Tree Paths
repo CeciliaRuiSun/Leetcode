@@ -1,30 +1,56 @@
-// Runtime: 9 ms, faster than 36.07%
-// Memory Usage: 39.1 MB, less than 76.50%
+// String is costly. Runtime: 22 ms, faster than 5.33%
+// Memory Usage: 43.3 MB, less than 5.38%
 
-class Solution {
-   List<String> ret  = new ArrayList<>();
-    
+class Solution {  
    public List<String> binaryTreePaths(TreeNode root) {
-        helper(root, "");
-        return ret;
-    }
+        List<String> ret = new LinkedList<>();
+        dfs(root, "", ret);
+       return ret;
+   }
     
-    private void helper(TreeNode root, String path){
-        if(root == null){
-            return;
-        }
-        
+    private void dfs(TreeNode root, String cur, List<String> ret){
+        if(root == null) return;
+        cur += root.val;
         if(root.left == null && root.right == null){
-            ret.add(path + root.val);
+            ret.add(cur);
             return;
         }
         
         if(root.left != null){
-            helper(root.left, path + root.val + "->");
+            dfs(root.left, cur + "->", ret);
         }
         
         if(root.right != null){
-            helper(root.right, path + root.val + "->");
+            dfs(root.right, cur + "->", ret);
         }
+    }
+}
+
+
+// use stringbuilder
+// Runtime: 1 ms, faster than 99.88%
+// Memory Usage: 43 MB, less than 5.38% 
+class Solution {  
+   public List<String> binaryTreePaths(TreeNode root) {
+        List<String> ret = new LinkedList<>();
+        dfs(root, new StringBuilder(), ret);
+        return ret;
+   }
+    
+    private void dfs(TreeNode root, StringBuilder cur, List<String> ret){
+        if(root == null) return;
+        
+        int len = cur.length();
+        cur.append(root.val);
+        
+        if(root.left == null && root.right == null){
+            ret.add(cur.toString());
+        } else{
+            cur.append("->");
+            dfs(root.left, cur, ret);
+            dfs(root.right, cur, ret);
+        }
+        cur.setLength(len);
+        
     }
 }
