@@ -1,0 +1,37 @@
+public class Codec {
+    public static final String spliter = ",";
+    
+    // Encodes a tree to a single string.
+    public String serialize(TreeNode root) {
+        return encode(root, new StringBuilder());
+    }
+    
+    private String encode(TreeNode root, StringBuilder sb){
+        if(root == null) return "";
+        sb.append(root.val).append(spliter);
+        encode(root.left, sb);
+        encode(root.right, sb);
+        return sb.toString();
+    }
+
+    // Decodes your encoded data to tree.
+    public TreeNode deserialize(String data) {
+        if(data.length() == 0) return null;
+        Deque<String> nodes = new LinkedList<>();
+        nodes.addAll(Arrays.asList(data.split(spliter)));
+        return decode(nodes, Integer.MIN_VALUE, Integer.MAX_VALUE);
+    }
+    
+    private TreeNode decode(Deque<String> nodes, int min, int max){
+        if(nodes.isEmpty()) return null;
+        
+        int val = Integer.valueOf(nodes.peek());
+        if(val < min || val > max) return null;
+        nodes.poll();
+        TreeNode root = new TreeNode(val);
+        root.left = decode(nodes, min, val);
+        root.right = decode(nodes, val, max);
+        return root;
+    }
+    
+}
