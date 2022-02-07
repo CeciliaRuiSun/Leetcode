@@ -1,0 +1,23 @@
+class Solution {
+    public Node lowestCommonAncestor(Node p, Node q) {
+        List<Node> path_p = new LinkedList<>();
+        
+        Node temp_p = p;
+        Node temp_q = q;
+        
+        while(temp_p != null){
+            path_p.add(0,temp_p);
+            temp_p = temp_p.parent;
+        }
+        
+        while(temp_q != null){
+            if(path_p.contains(temp_q)){
+                return temp_q;
+            }
+            
+            temp_q = temp_q.parent;
+        }
+        
+        return null;
+    }
+}
