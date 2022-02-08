@@ -1,0 +1,21 @@
+class Solution {
+    int ret = 0;
+    
+    public int diameterOfBinaryTree(TreeNode root) {
+        dfs(root);
+        return ret;
+    }
+    
+    private int dfs(TreeNode root){
+        if(root == null) return 0;
+        int left = dfs(root.left);
+        int right = dfs(root.right);
+        
+        if(left + right > ret){
+            ret = left + right;
+        }
+        
+        return 1 + Math.max(left,right);
+        
+    }
+}
