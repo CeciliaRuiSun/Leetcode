@@ -1,0 +1,32 @@
+class Solution {
+    int ret = 0;
+    
+    public int longestUnivaluePath(TreeNode root) {
+        dfs(root);
+        return ret;
+    }
+    
+    private int dfs(TreeNode root){
+        if(root == null) return 0;
+        
+        int left = dfs(root.left);
+        int right = dfs(root.right);
+        if(root.left != null && root.val == root.left.val && root.right != null && root.val == root.right.val){
+            if(left + right + 2 > ret){
+                ret = left + right + 2;
+            }           
+        }
+        
+        int max = 0;
+        if(root.left != null && root.val == root.left.val){
+            max = left + 1;
+        }
+        if(root.right != null && root.val == root.right.val){
+            max = Math.max(max, right + 1);
+        }
+        
+        ret = Math.max(ret, max);
+        
+        return max;
+    }
+}
