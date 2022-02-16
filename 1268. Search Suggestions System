@@ -1,0 +1,28 @@
+class Solution {
+    public List<List<String>> suggestedProducts(String[] products, String searchWord) {
+        List<List<String>> ret = new LinkedList<>();
+        PriorityQueue<String> pq = new PriorityQueue<>(Collections.reverseOrder());
+        
+        for(int i = 0; i < searchWord.length(); i ++){
+            
+            String pre = searchWord.substring(0, i + 1);
+            for(int j = 0; j < products.length; j ++){
+                if(products[j].startsWith(pre)){
+                    pq.offer(products[j]);
+                }
+                
+                if(pq.size() > 3){
+                    pq.poll();
+                }
+            }
+            
+            List temp = new LinkedList<>();
+            while(!pq.isEmpty()){
+                temp.add(0, pq.poll());
+            }
+            ret.add(temp);
+        }
+        
+        return ret;
+    }
+}
