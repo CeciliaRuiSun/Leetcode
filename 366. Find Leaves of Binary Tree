@@ -1,0 +1,21 @@
+class Solution {
+    public List<List<Integer>> findLeaves(TreeNode root) {
+        List<List<Integer>> ret = new LinkedList<>();
+        dfs(root, ret);
+        return ret;
+    }
+    
+    private int dfs(TreeNode root, List<List<Integer>> ret) {
+        if(root == null) return -1;
+        
+        int level = 1 + Math.max(dfs(root.left, ret), dfs(root.right, ret));
+        if(ret.size() == level){
+            ret.add(new LinkedList<>());
+        }
+        
+        ret.get(level).add(root.val);
+        return level;
+    }
+    
+    
+}
