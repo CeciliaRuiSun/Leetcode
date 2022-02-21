@@ -1,0 +1,16 @@
+class Solution {
+    public int rob(int[] nums) {
+        int ifRobPrevious = 0;
+        int ifNotRobPrevious = 0;
+        
+        for(int i = 0; i < nums.length; i++){
+            int curRobbed = ifNotRobPrevious + nums[i];
+            int curNotRobbed = Math.max(ifRobPrevious, ifNotRobPrevious);
+            
+            ifNotRobPrevious = curNotRobbed;
+            ifRobPrevious = curRobbed;
+        }
+        
+        return Math.max(ifRobPrevious, ifNotRobPrevious);
+    }
+}
