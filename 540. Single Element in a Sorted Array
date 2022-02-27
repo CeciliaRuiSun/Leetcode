@@ -2,8 +2,8 @@
 class Solution {
     public int singleNonDuplicate(int[] nums) {
         // single number's index can only be even
-        // if mid is odd, compare it with its next number
-        // if mid is even, compare it with its previous number
+        // if mid is even, compare it with its next number
+        // if mid is odd, compare it with its previous number
         
         int left = 0, right = nums.length-1;
         
