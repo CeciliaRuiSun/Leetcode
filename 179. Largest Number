@@ -1,0 +1,32 @@
+//https://leetcode.com/problems/largest-number/discuss/53158/My-Java-Solution-to-share
+
+class Solution {
+    public String largestNumber(int[] nums) {
+        String[] s_nums = new String[nums.length];
+        for(int i = 0; i < nums.length; i ++){
+            s_nums[i] = String.valueOf(nums[i]);
+        }
+        
+        Comparator<String> comp = new Comparator<String>(){
+            @Override
+            public int compare(String s1, String s2){
+                String str1 = s1 + s2;
+                String str2 = s2 + s1;
+                return str2.compareTo(str1);
+            }
+        };
+        
+        Arrays.sort(s_nums, comp);
+        
+        if(s_nums[0].charAt(0) == '0'){
+            return "0";
+        }
+        
+        StringBuilder sb = new StringBuilder();
+        for(String s: s_nums){
+            sb.append(s);
+        }
+        
+        return sb.toString();
+    }
+}
