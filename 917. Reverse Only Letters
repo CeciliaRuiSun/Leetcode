@@ -1,0 +1,27 @@
+class Solution {
+    public String reverseOnlyLetters(String s) {
+        int left = 0, right = s.length() - 1;
+        StringBuilder sb = new StringBuilder(s);
+        
+        while(left < right){
+            char c_l = s.charAt(left);
+            char c_r = s.charAt(right);
+            if(!Character.isLetter(c_l)){
+                left ++;
+                continue;
+            }
+            
+            if(!Character.isLetter(c_r)){
+                right --;
+                continue;
+            }
+            
+            sb.setCharAt(left, c_r);
+            sb.setCharAt(right, c_l);
+            left++;
+            right --;
+        }
+        
+        return sb.toString();
+    }
+}
