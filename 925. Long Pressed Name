@@ -1,0 +1,37 @@
+class Solution {
+    public boolean isLongPressedName(String name, String typed) {
+        // 2 pointers i and j are handling the same characters at the same time(let's say c)
+        // The count of consecutive c in typed >= the count of consecutive c in name
+       
+        int n = name.length(), t = typed.length();
+        if(n > t) return false;
+        
+        int i = 0, j = 0;
+        while(i < n && j < t){
+            char c_n = name.charAt(i);
+            char c_t = typed.charAt(j);
+            if(c_n != c_t) return false;
+            
+            int countn = 1, countt = 1;
+            
+            while(i + 1 < n && name.charAt(i + 1) == c_n){
+                countn ++;
+                i ++;
+            }
+            
+            while(j + 1 < t && typed.charAt(j + 1) == c_t){
+                countt ++;
+                j ++;
+            }
+            
+            if(countn > countt) return false;
+            i ++;
+            j ++;
+        }
+        
+        // return false if name or typed has extra char at the end
+        if(j < t || i < n) return false;
+        
+        return true;
+    }
+}
