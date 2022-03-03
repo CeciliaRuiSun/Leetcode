@@ -1,0 +1,75 @@
+class MaxStack {
+    
+    private class Node{
+        int val;
+        Node pre;
+        Node next;
+        
+        public Node(){
+            
+        }
+        
+        public Node(int v){
+            val = v;
+        }
+    }
+    
+    private PriorityQueue<Integer> queue;
+    private Node head;
+    private Node end;
+    
+    public MaxStack() {
+        head = new Node(-1);
+        end = new Node(-1);
+        queue = new PriorityQueue<>((a,b) -> Integer.compare(b,a));
+        head.next = end;
+        end.pre = head;
+    }
+    
+    public void push(int x) {
+        Node temp = new Node(x);
+        end.pre.next = temp;
+        temp.next = end;
+        temp.pre = end.pre;
+        end.pre = temp;
+        queue.offer(x);
+    }
+    
+    public int pop() {
+        Node temp = end.pre;
+        temp.pre.next = end;
+        end.pre = temp.pre;
+        queue.remove(temp.val);
+        return temp.val;
+    }
+    
+    public int top() {
+        return end.pre.val;
+    }
+    
+    public int peekMax() {
+        return queue.peek();
+    }
+    
+    public int popMax() {
+        Node temp = end.pre;
+        while(temp.val != queue.peek()){
+            temp = temp.pre;
+        }
+        
+        temp.pre.next = temp.next;
+        temp.next.pre = temp.pre;
+        queue.poll();
+        return temp.val;
+    }
+}
+
+/**
+ * Your MaxStack object will be instantiated and called as such:
+ * MaxStack obj = new MaxStack();
+ * obj.push(x);
+ * int param_2 = obj.pop();
+ * int param_3 = obj.top();
+ * int param_4 = obj.peekMax();
+ * int param_5 = obj.popMax();
+ */
