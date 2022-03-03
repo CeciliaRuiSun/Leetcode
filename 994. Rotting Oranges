@@ -1,0 +1,40 @@
+class Solution {
+    public int orangesRotting(int[][] grid) {
+        Queue<int[]> queue = new LinkedList<>();
+        int cnt = 0, cnt_fresh = 0;
+        int[][] dir = {{1, 0}, {-1, 0}, {0, 1}, {0,-1}};
+        
+        // put all rotten oranges to queue, count fresh oranges
+        for(int i = 0; i < grid.length; i++){
+            for(int j = 0; j < grid[0].length; j++){
+                if(grid[i][j] == 2){
+                    queue.offer(new int[]{i, j});
+                } else if(grid[i][j] == 1){
+                    cnt_fresh ++;
+                }
+            }
+        }
+        
+        while(!queue.isEmpty() && cnt_fresh > 0){
+            cnt ++;
+            int size = queue.size();
+            for(int i = 0; i < size; i++){
+                int[] temp = queue.poll();
+                for(int[] delta: dir){
+                    int x = temp[0] + delta[0];
+                    int y = temp[1] + delta[1];
+
+                    if(x < 0 || y < 0 || x >= grid.length || y >= grid[0].length) continue;
+                    
+                    if(grid[x][y] == 1){
+                        grid[x][y] = 2;
+                        queue.offer(new int[]{x,y});
+                        cnt_fresh --;
+                    }
+                }
+            }
+        }
+        
+        return cnt_fresh == 0? cnt: -1;
+    }
+}
