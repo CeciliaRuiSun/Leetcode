@@ -1,0 +1,26 @@
+class Solution {
+    public int[][] intervalIntersection(int[][] firstList, int[][] secondList) {
+        if(firstList.length == 0 || secondList.length == 0){
+            return new int[][]{};
+        }
+        
+        List<int[]> ret = new ArrayList<>();
+        int i = 0, j = 0;
+        while(i < firstList.length && j < secondList.length){
+            int[] intervalA = firstList[i];
+            int[] intervalB = secondList[j];
+            
+            int start = Math.max(intervalA[0], intervalB[0]);
+            int end = Math.min(intervalA[1], intervalB[1]);
+            
+            if(end >= start){
+                ret.add(new int[]{start, end});
+            }
+            
+            if(intervalA[1] == end) i ++;
+            if(intervalB[1] == end) j ++;
+        }
+        
+        return ret.toArray(new int[ret.size()][]);
+    }
+}
