@@ -1,0 +1,43 @@
+/*
+
+Since n may be a large number compared to the length of list. So we need to know the length of linked list.After that, move the list after the (l-n%l )th node to the front to finish the rotation.
+
+Ex: {1,2,3} k=2 Move the list after the 1st node to the front
+
+Ex: {1,2,3} k=5, In this case Move the list after (3-5%3=1)st node to the front.
+
+So the code has three parts.
+
+1) Get the length
+
+2) Move to the (l-n%l)th node
+
+3) Do the rotation
+
+*/
+
+class Solution {
+    public ListNode rotateRight(ListNode head, int k) {
+        if(head == null) return null;
+        ListNode fast = head;
+        ListNode slow = head;
+        int size = 1;
+        
+        while(fast.next != null){
+            fast = fast.next;
+            size ++;
+        }
+        
+        int moves = size - k%size;
+        while(moves > 1){
+            slow = slow.next;
+            moves --;
+        }
+        
+        fast.next = head;
+        head = slow.next;
+        slow.next = null;
+        
+        return head;
+    }
+}
