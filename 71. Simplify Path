@@ -1,0 +1,51 @@
+/*
+  "/a/./b/../../c/"
+*/
+
+class Solution {
+    public String simplifyPath(String path) {
+        StringBuilder sb = new StringBuilder();
+        int i = 0;
+        while(i < path.length()){
+            char c = path.charAt(i);
+            if(i == 0){
+                if(Character.isLetter(c)&& sb.length() == 0){
+                    sb.append('/');
+                    continue;
+                } else if(Character.isLetter(c) || c == '/'){
+                    sb.append(c);
+                    i ++;
+                    continue;
+                } else{
+                    sb.append('/');    // c == '.' or '_'
+                    i ++;
+                    continue; 
+                }
+            }
+            
+            if(Character.isLetter(c)){
+                sb.append(c);
+                
+            }  else if(c == '.' || c == '_'){
+                
+            } else{                  // c = '/'
+                if(sb.charAt(sb.length() - 1) == '/'){
+                    
+                } else{
+                    sb.append(c);
+                }
+            }
+            
+            i ++;
+        
+        }
+        
+        int j = sb.length() - 1;
+        while(j > 0 && sb.charAt(j) == '/'){
+            sb.deleteCharAt(j);
+            j --;
+        }
+        
+        return sb.toString();
+    }
+}
