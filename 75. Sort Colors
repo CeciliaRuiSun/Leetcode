@@ -1,0 +1,26 @@
+
+class Solution {
+    public void sortColors(int[] nums) {
+        // quick sort
+        int left = 0, right = nums.length - 1, cur = 0;
+        
+        while(cur <= right){
+            if(nums[cur] == 0){
+                // put all 0s to left
+                nums[cur] = nums[left];
+                nums[left] = 0;
+                left ++;
+            }
+            
+            if(nums[cur] == 2){
+                // put all 2s to right
+                nums[cur] = nums[right];
+                nums[right] = 2;
+                right --;
+                cur --;
+            }
+            
+            cur ++;
+        }
+    }
+}
