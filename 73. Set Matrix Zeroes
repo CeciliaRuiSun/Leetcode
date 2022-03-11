@@ -1,0 +1,27 @@
+class Solution {
+    public void setZeroes(int[][] matrix) {
+        Map<String, Integer> map = new HashMap<>();
+        
+        int row = matrix.length, col = matrix[0].length;
+        for(int i = 0; i < row; i++){
+            for(int j = 0; j < col; j++){
+                if(matrix[i][j] == 0){
+                    map.put("row" + i,0);
+                    map.put("col" + j,0);
+                }
+            }
+        }
+        
+        for(int i = 0; i < row; i++){
+            for(int j = 0; j < col; j++){
+                String rowKey = "row" + i;
+                String colKey = "col" + j;
+                if(map.containsKey(rowKey) || map.containsKey(colKey)){
+                    matrix[i][j] = 0;
+                }
+            }
+        }
+        
+        
+    }
+}
