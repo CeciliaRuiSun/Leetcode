@@ -1,0 +1,49 @@
+class Solution {
+    public int shipWithinDays(int[] weights, int days) {
+        int len = weights.length;
+        int lo = getMax(weights), hi = len * lo;
+        int cap = weights[0];
+        while(lo <= hi){
+            int mid = lo + (hi - lo)/2;
+            int curDays = calDays(weights, mid);
+            if(curDays > days){
+                lo = mid + 1;
+            } else{
+                hi = mid - 1;
+                cap = mid;
+            }
+        }
+        
+        return cap;
+    }
+    
+    private int getMax(int[] weights){
+        int ret = weights[0];
+        for(int n: weights){
+            ret = Math.max(n, ret);
+        }
+        
+        return ret;
+    }
+    
+    private int calDays(int[] weights, int cap){
+        int days = 0;
+        int i = 0;
+        int cur = 0;
+        while(i < weights.length){
+            
+            if(cur + weights[i] > cap){
+                days++;
+                cur = weights[i];
+            } else{
+                cur += weights[i];
+            } 
+            
+            i ++;
+        }
+        
+        if(cur <= cap) days ++;   // add one day if it doesn't reach capacity at the last load
+        
+        return days;
+    }
+}
