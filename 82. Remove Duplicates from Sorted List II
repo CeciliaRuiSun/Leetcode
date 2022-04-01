@@ -1,0 +1,43 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode deleteDuplicates(ListNode head) {
+        // if cur.val != pre.val && cur.val != cur.next.val, then we store current value, else, move forward
+        // use sentinal node to check the 1st node
+        // also last node need to be checked
+        
+        if(head == null) return head;
+        
+        ListNode sentinal = new ListNode(0 == head.val? 1: 0);   // make sure sentinal's value != first node's value
+        sentinal.next = head;
+        ListNode cur = head;
+        ListNode pre = sentinal;
+        head = sentinal;
+        
+        while(cur.next != null){
+           if(cur.val != pre.val && cur.val != cur.next.val){
+               head.next = cur;
+               head = head.next;
+           } 
+           
+            cur = cur.next;
+            pre = pre.next;
+        }
+        
+        if(cur.val != pre.val){
+            head.next = cur;
+        } else{
+            head.next = null;
+        }
+        
+        return sentinal.next;
+    }
+}
