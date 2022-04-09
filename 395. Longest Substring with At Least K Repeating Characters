@@ -1,0 +1,36 @@
+class Solution {
+    public int longestSubstring(String s, int k) {
+        int[] freq = new int[26];
+        // store frequency of each character
+        for(int i = 0; i < s.length(); i ++){
+            char c = s.charAt(i);
+            freq[c - 'a'] ++;
+        }
+        
+        boolean flag = true;
+        for(int n: freq){
+            if(n > 0 && n < k) {
+                flag = false;
+            }
+        }
+        
+        // return length if s is valid
+        if(flag) return s.length();
+        
+        // else use all infrequent items as splits
+        int ret = 0;
+        int start = 0, cur = 0;
+        while(cur < s.length()){
+            int curFreq = freq[s.charAt(cur) - 'a'];
+            if(curFreq < k){
+                ret = Math.max(ret, longestSubstring(s.substring(start, cur),k));
+                start = cur + 1;
+            }
+            
+            cur ++;
+        }
+        
+        ret = Math.max(ret, longestSubstring(s.substring(start, cur),k));
+        return ret;
+    }
+}
