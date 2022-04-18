@@ -1,15 +1,22 @@
 class Solution {
+    //https://www.youtube.com/watch?v=P6RZZMu_maU
+    
     public int longestConsecutive(int[] nums) {
         if(nums == null || nums.length == 0) return 0;
         
+        //put all numbers into set
         Set<Integer> set = new HashSet<>();
         for(int n: nums){
             set.add(n);
         }
-        
+       
         int ret = 0;
         for(int n: nums){
             if(!set.contains(n-1)){
+                // 100 -->
+                // 200 -->
+                // 1 --> 2 --> 3 --> 4
+                
                 int curCnt = 1;
                 while(set.contains(n + 1)){
                     curCnt ++;
