@@ -1,0 +1,51 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public void reorderList(ListNode head) {
+            if(head==null||head.next==null) return;
+            
+            //Find the middle of the list
+            ListNode p1=head;
+            ListNode p2=head;
+            while(p2.next!=null&&p2.next.next!=null){ 
+                p1=p1.next;
+                p2=p2.next.next;
+            }
+            
+            //Reverse the half after middle  1->2->3->4->5->6 to 1->2->3->6->5->4            
+            ListNode pre = p1.next; //4
+            ListNode cur = pre.next; //5
+            while(cur != null){
+                pre.next = cur.next;   //4 --> 6
+                cur.next = p1.next;
+                p1.next = cur;   // 3 --> 5
+                cur = pre.next;    // 6
+            }
+            
+            //Start reorder one by one  1->2->3->6->5->4 to 1->6->2->5->3->4
+            //loop second half and add node to first half one by one
+            ListNode firstCur = head;   //1
+            ListNode secCur = p1.next; //6
+            ListNode temp = secCur.next;  //5
+            p1.next = null;
+            while(secCur!=null){
+                
+                secCur.next = firstCur.next;
+                firstCur.next = secCur;
+                secCur = temp;
+                firstCur = firstCur.next.next;
+                if(temp!=null){
+                    temp = temp.next;
+                }
+            }
+            
+        }
+}
