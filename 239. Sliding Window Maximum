@@ -1,0 +1,57 @@
+// Time exceeded
+// use pq to store index, but sort by value
+
+class Solution {
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        int n = nums.length;
+        if(n == 0 || k == 0 || nums == null) return nums;
+        
+        int[] ret = new int[n - (k - 1)];
+        int curMax = nums[0];
+        PriorityQueue<Integer> maxPQ = new PriorityQueue<>((a,b) -> Integer.compare(nums[b],nums[a]));     //sorted by value
+        
+        for(int i = 0; i < n; i++){
+            if(i - k >= 0){
+                maxPQ.remove(i - k);  //remove index;
+            }
+            
+            maxPQ.offer(i);
+            if(i >= k - 1){
+                ret[i - (k - 1)] = nums[maxPQ.peek()];
+            }
+        }
+        
+        return ret;
+    }
+}
+
+
+// solution 2
+// use deque
+class Solution {
+    //https://leetcode.com/problems/sliding-window-maximum/discuss/458121/Java-All-Solutions-(B-F-PQ-Deque-DP)-with-Explanation-and-Complexity-Analysis
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        if (nums.length == 0 || k == 0) return nums;
+
+        int n = nums.length;
+        int[] ret = new int[n - k + 1]; // number of windows
+        Deque<Integer> deque = new ArrayDeque<>();
+        
+        for(int i = 0; i < nums.length; i++){
+            while(deque.size() > 0 && deque.peekFirst() <= i - k){
+                deque.pollFirst();
+            }
+            
+            while(deque.size() > 0 && nums[deque.peekLast()] < nums[i]){
+                deque.pollLast();
+            }
+            
+            deque.addLast(i);
+            if(i - (k - 1) >= 0){
+                ret[i - (k - 1)] = nums[deque.peekFirst()];
+            }
+        }
+        
+        return ret;
+    }
+}
