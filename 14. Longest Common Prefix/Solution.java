@@ -31,3 +31,25 @@ class Solution {
         return ret.toString();
     }
 }
+
+
+//
+class Solution {
+    public String longestCommonPrefix(String[] strs) {
+        StringBuilder ret = new StringBuilder();
+        boolean flag = false;
+        for(int i = 0 ; i < strs[0].length(); i ++){
+            char cur = strs[0].charAt(i);
+            for(int j = 1; j < strs.length; j ++){
+                if(i >= strs[j].length() || strs[j].charAt(i) != cur){
+                    flag = true;
+                    break;
+                }
+            }
+            
+            if(flag) break;
+            ret.append(cur);
+        }
+        return ret.toString();
+    }
+}
