@@ -1,3 +1,33 @@
+//
+class Solution {
+    // from leetcode solution
+    
+    public String longestPalindrome(String s) {
+        String ret = "";
+        
+        for(int i = 0; i < s.length(); i++){
+            int len1 = expand(s, i, i);
+            int len2 = expand(s, i, i+1);
+            int len = Math.max(len1, len2);
+            if(len > ret.length()){
+                ret = s.substring(i - (len - 1)/2, i + len/2 + 1);
+            }
+        }
+        
+        return ret;
+    }
+    
+    private int expand(String s, int left, int right){
+        while(left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)){
+            left --;
+            right ++;
+        }
+        return right - left - 1;
+    }
+}
+
+
+
 // Runtime: 2616 ms, faster than 5.02%
 // Memory Usage: 481.7 MB, less than 5.03%
 
