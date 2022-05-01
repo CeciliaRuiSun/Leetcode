@@ -32,3 +32,22 @@ class Solution {
         }
     }
 }
+
+
+//
+// notes: if x < 0, then reminder of each time is < 0, so ret is of the same sign as x
+
+class Solution {
+    public int reverse(int x) {
+        int ret = 0, newRet = 0;
+        
+        while(x != 0){
+           newRet = ret * 10 + x%10;
+            if(newRet / 10 != ret) return 0;   // if overflow, new result won't equal oldret * 10
+            ret = newRet;
+            x = x/10;
+        }
+        
+        return ret;
+    }
+}
