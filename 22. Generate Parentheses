@@ -1,3 +1,28 @@
+//
+class Solution {
+    public List<String> generateParenthesis(int n) {
+        List<String> ret = new LinkedList<>();
+        helper(ret, "", 0, 0, n);
+        return ret;
+    }
+    
+    private void helper(List<String> ret, String cur, int left, int right, int n){
+        // left/right if the count of left/right parenthesis,
+        if(left == n && right == n){
+            ret.add(cur);
+            return;
+        }
+        
+        if(left < right) return;
+        
+        if(left < n) helper(ret, cur + "(", left + 1, right, n);
+        if(right < n) helper(ret, cur + ")", left, right + 1, n);
+    }
+}
+
+
+
+
 // Runtime: 1 ms, faster than 76.28%
 // Memory Usage: 39.4 MB, less than 41.56%
 
