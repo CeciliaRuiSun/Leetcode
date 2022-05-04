@@ -1,3 +1,26 @@
+//
+class Solution {
+    public ListNode swapPairs(ListNode head) {
+        if(head == null || head.next == null) return head;
+        
+        ListNode sentinal = new ListNode(0);
+        sentinal.next = head;
+        
+        ListNode p1 = sentinal;
+        
+        while(p1.next != null && p1.next.next != null){
+            ListNode p2 = p1.next, p3 = p2.next;
+            p2.next = p3.next;
+            p1.next = p3;
+            p3.next = p2;
+            p1 = p2;
+        }
+        
+        return sentinal.next;
+    }
+}
+
+
 // Runtime: 0 ms, faster than 100.00% 
 // Memory Usage: 38.5 MB, less than 32.45%
 
