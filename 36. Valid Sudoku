@@ -1,3 +1,34 @@
+//
+class Solution { 
+    public boolean isValidSudoku(char[][] board) {
+        Map<Integer, Set<Character>> row = new HashMap<>();
+        Map<Integer, Set<Character>> col = new HashMap<>();
+        Map<Integer, Set<Character>> cube = new HashMap<>();
+        
+        for(int i = 0; i < 9; i++){
+            row.put(i, new HashSet<>());
+            col.put(i, new HashSet<>());
+            cube.put(i, new HashSet<>());
+        }
+        
+        for(int i = 0; i < 9; i++){
+            for(int j = 0; j < 9; j++){
+                char cur = board[i][j];
+                if(cur == '.') continue;
+                if(row.get(i).contains(cur) || col.get(j).contains(cur) || cube.get(i/3 * 3 + j/3).contains(cur)){
+                    return false;
+                }
+                row.get(i).add(cur);
+                col.get(j).add(cur);
+                cube.get(i/3 * 3 + j/3).add(cur);
+            }
+        }
+        
+        return true;
+    }
+}
+
+
 // Runtime: 13 ms, faster than 30.54%
 // Memory Usage: 39.9 MB, less than 51.47% 
 
