@@ -1,3 +1,25 @@
+class Solution {
+// sort each string and store them in hashmap
+    public List<List<String>> groupAnagrams(String[] strs) {
+        if(strs.length == 0) return new ArrayList<>();
+        
+        Map<String, List<String>> ret = new HashMap<>();
+        
+        for(String s: strs){
+            char[] ca = s.toCharArray();
+            Arrays.sort(ca);
+            String key = String.valueOf(ca);
+            List<String> value = ret.getOrDefault(key, new ArrayList<>());
+            value.add(s);
+            ret.put(key, value);
+        }
+        
+        return new ArrayList(ret.values());
+    }
+}
+
+
+
 // Runtime: 13 ms, faster than 41.53%
 // Memory Usage: 53.2 MB, less than 20.58% 
 
