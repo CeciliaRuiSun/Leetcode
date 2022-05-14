@@ -1,5 +1,37 @@
 class Solution {
     public int[][] insert(int[][] intervals, int[] newInterval) {
+        
+        List<int[]> ls = new ArrayList<>();
+        int[] pre = newInterval;
+        for(int[] cur: intervals){
+            if(pre[1] < cur[0]){
+                // when pre comes earlier than cur
+                ls.add(pre);
+                pre = cur;
+            } else if(cur[1] < pre[0]){
+                // when cur comes earlier than pre
+                ls.add(cur);
+            } else{
+                // when there is overlap
+                pre[0] = Math.min(cur[0], pre[0]);
+                pre[1] = Math.max(cur[1], pre[1]);
+            }
+        }
+        
+        ls.add(pre);
+        
+        int[][] ret = new int[ls.size()][2];
+        for(int i = 0; i < ls.size(); i++){
+            ret[i] = ls.get(i);
+        }
+        
+        return ret;
+    }
+}
+
+//
+class Solution {
+    public int[][] insert(int[][] intervals, int[] newInterval) {
         List<int[]> ls = new LinkedList<>();
         int start = newInterval[0];
         int end = newInterval[1];
