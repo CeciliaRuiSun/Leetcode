@@ -1,22 +1,18 @@
 class Solution {
     public int[][] merge(int[][] intervals) {
-        if(intervals.length == 1){
-            return intervals;
-        }
         
         // sort by start point using lambda comparator
-        Arrays.sort(intervals, (i1, i2) -> Integer.compare(i1[0], i2[0]));
-        
-        List<int[]> ret = new LinkedList<>();
-        int[] newInterval = intervals[0];
-        ret.add(newInterval);
-        
-        for(int[] interval: intervals){
-            if(interval[0] <= newInterval[1]){
-                newInterval[1] = Math.max(newInterval[1], interval[1]);
+        List<int[]> ret = new ArrayList<>();
+        Arrays.sort(intervals, (a, b) -> Integer.compare(a[0], b[0]));
+    
+        int[] interval = intervals[0];
+        ret.add(interval);
+        for(int[] newinterval: intervals){
+            if(newinterval[0] > interval[1]){
+                ret.add(newinterval);
+                interval = newinterval;
             } else{
-                newInterval = interval;
-                ret.add(newInterval);
+                interval[1] = Math.max(interval[1], newinterval[1]);
             }
         }
         
