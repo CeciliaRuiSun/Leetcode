@@ -7,9 +7,11 @@ class Solution {
         
         for(int[] cur: intervals){
             if(pre[1] < cur[0]){
+                // when there is no overlap
                 ret.add(pre);
                 pre = cur;
             } else{
+                // there is overlap
                 pre[0] = Math.min(pre[0], cur[0]);
                 pre[1] = Math.max(pre[1], cur[1]);
             }
