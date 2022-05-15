@@ -2,7 +2,26 @@
 // We can consider this transformation as base-26. However, classic base-26 consists of number from 0 to 25, 
 // and in this case we have numbers from 1 to 26. 
 
+class Solution {
+    
+   public String convertToTitle(int columnNumber) {
+       StringBuilder ret = new StringBuilder();
+       int n = columnNumber;
+       while(n > 0){
+           n--;
+           int cur = n%26;
+           ret.append((char)('A' + cur));
+           n /= 26;
+       }
+       return ret.reverse().toString();
+   }   
+}
 
+
+
+
+
+//
 class Solution {
     
    public String convertToTitle(int columnNumber) {
