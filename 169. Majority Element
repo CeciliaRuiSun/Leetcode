@@ -1,3 +1,26 @@
+// Boyer-Moore Voting Algorithm
+class Solution {
+    public int majorityElement(int[] nums) {
+        int count = 0;
+        int cur = Integer.MAX_VALUE;
+        
+        for(int n: nums){
+            if(n == cur){
+                count ++;
+            } else if(count == 0){
+                count = 1;
+                cur = n;
+            } else{
+                count --;
+            }
+        }
+        
+        return cur;
+    }
+}
+
+
+
 class Solution {
     // Runtime: 8 ms, faster than 40.87%
     // Memory Usage: 44.5 MB, less than 28.65%
