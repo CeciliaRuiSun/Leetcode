@@ -1,3 +1,23 @@
+public class Solution {
+    // node val may be duplicate, but every node is unique
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        Set<ListNode> NodeInB = new HashSet<>();
+        ListNode curA = headA, curB = headB;
+        while(curB != null){
+            NodeInB.add(curB);
+            curB = curB.next;
+        }
+        
+        while(curA != null){
+            if(NodeInB.contains(curA)) return curA;
+            curA = curA.next;
+        }
+        
+        return null;
+    }
+}
+
+
 // Runtime: 2 ms, faster than 45.66%
 //  Memory Usage: 52.1 MB, less than 21.94%
 
