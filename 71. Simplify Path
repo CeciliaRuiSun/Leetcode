@@ -1,3 +1,37 @@
+class Solution {
+    public String simplifyPath(String path) {
+        String[] dir = path.split("/");   //split path
+        Deque<String> dq = new ArrayDeque<>();
+        
+        for(String s: dir){
+            // add all valid elements to deque
+            if(s.equals(".") || s.length() == 0){
+                continue;
+            } else if(s.equals("..")){
+                if(!dq.isEmpty()){
+                    dq.pollLast();
+                }
+            } else{
+                dq.addLast(s);
+            }
+        }
+        
+        StringBuilder ret = new StringBuilder();
+        while(!dq.isEmpty()){
+            ret.append('/');
+            ret.append(dq.pollFirst());
+        }
+        
+        if(ret.length() == 0) return "/";
+        
+        return ret.toString();
+    }
+}
+
+
+
+
+
 /*
   "/a/./b/../../c/"
 */
