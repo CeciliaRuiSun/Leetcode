@@ -63,3 +63,58 @@ class Solution {
         return ret;
     }
 }
+
+
+// mark start of an interval as 1, end of interval as -1
+// using an variable x, initialized as 0, if x = 0 and axis[i] > 0 then this is a start of a final interval; if x = 1 and axis[i] = -1 then
+// this is an end of a final interval
+// can not deal with when newInterval is a single point like [0, 0]
+
+class Solution {
+    public int[][] insert(int[][] intervals, int[] newInterval) {
+        int len = intervals.length;
+        int[] axis = new int[100001]; // 0 -- min
+        
+        for(int[] cur: intervals){
+            int start = cur[0];
+            int end = cur[1];
+            
+            axis[start] = 1;
+            axis[end] = -1;
+        }
+        
+        axis[newInterval[0]] ++;   // in case newInterval[0] is a duplicate
+        axis[newInterval[1]] --;
+        
+        int x = 0;
+        int i = 0;
+        List<int[]> ls = new ArrayList<>();
+        while(i < axis.length){
+            int left = 0, right = 0;
+            if(x == 0 && axis[i] > 0){       // we find start of the interval
+                left = i;
+                x += axis[i];
+                i ++;
+                while(i < axis.length && (x!=1 || axis[i]!=-1)){    // loop until we find the end
+                    if(axis[i] > 0){
+                        x += axis[i];
+                    } else if(axis[i] < 0){
+                        x += axis[i];
+                    }
+                    i ++;
+                }
+                right = i;
+                x --;
+                ls.add(new int[]{left, right});
+            }
+            i++;
+        }
+        
+        int[][] ret = new int[ls.size()][2];
+        for(int j = 0; j < ls.size(); j++){
+            ret[j] = ls.get(j);
+        }
+        
+        return ret;
+    }
+}
