@@ -1,0 +1,43 @@
+class Solution {
+    public int eraseOverlapIntervals(int[][] intervals) {
+        int cnt = 0;
+        if(intervals.length <= 1) return cnt;
+        
+        Arrays.sort(intervals, (a,b)->Integer.compare(a[0], b[0]));
+        int[] first = intervals[0];
+        int[] sec = intervals[1];
+        if(intervals.length == 2){
+            if(sec[0] >= first[1]){
+                //no overlap
+                return 0;
+            } else{
+                return 1;
+            }
+        } else{
+            int p = 2;
+            while(p < intervals.length){
+                int[] temp = intervals[p];
+                if(sec[0] >= first[1]){
+                    // no overlap between first and sec
+                    first = sec;
+                    sec = temp;
+                    
+                } else{
+                    if(first[1] - temp[0] > sec[1] - temp[0]){
+                        first = sec;
+                        sec = temp;
+                        cnt ++;
+                    } else{
+                        sec = temp;
+                        cnt ++;
+                    }
+                }
+                p ++;
+            }
+            
+            if(sec[0] < first[1]) cnt++;
+            
+            return cnt;
+        }
+    }
+}
