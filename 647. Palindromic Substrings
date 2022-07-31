@@ -1,0 +1,27 @@
+class Solution {
+
+// It's the same algorithm as 5. Longest Palindromic Substring. when we looking for longest palindrome, we searched all sub-palindrome.
+
+    public int countSubstrings(String s) {
+        int ret = 0;
+        if(s == null || s.length() == 0) return ret;
+        
+        for(int i = 0; i < s.length(); i++){
+            int firstCnt = cntPalindrome(s, i, i);
+            int secCnt = cntPalindrome(s, i, i+1);
+            ret = ret + firstCnt + secCnt;
+        }
+        
+        return ret;
+    }
+    
+    private int cntPalindrome(String s, int l, int r){
+        int cnt = 0;
+        while(l >= 0 && r < s.length() && s.charAt(l) == s.charAt(r)){
+            cnt ++;
+            l --;
+            r ++;
+        }
+        return cnt;
+    }
+}
