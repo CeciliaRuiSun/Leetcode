@@ -29,3 +29,47 @@ class Solution {
         return Math.max(root.val, root.val + Math.max(left, right));
     }
 }
+
+
+//
+class Solution {
+    int max = Integer.MIN_VALUE;
+    
+    public int maxPathSum(TreeNode root) {
+        if(root == null) return 0;
+        
+        int sum = DFS(root);
+        return Math.max(max, sum);
+    }
+    
+    private int DFS(TreeNode root){
+        if(root.left == null && root.right == null) {
+            return root.val;
+        } else if(root.left == null){
+            int r = DFS(root.right);
+            max = Math.max(max,root.val);
+            max = Math.max(max,r);
+            max = Math.max(max,r + root.val);
+            return Math.max(r + root.val, root.val);
+        } else if(root.right == null){
+            int l = DFS(root.left);
+            max = Math.max(max,root.val);
+            max = Math.max(max,l);
+            max = Math.max(max,l + root.val);
+            return Math.max(l + root.val, root.val);
+        }
+        
+        int left = DFS(root.left);
+        int right = DFS(root.right);
+        
+        max = Math.max(max,left);
+        max = Math.max(max,right);
+        max = Math.max(max,root.val);
+        max = Math.max(max,left + root.val);
+        max = Math.max(max,right + root.val);
+        max = Math.max(max, left + right + root.val);
+        
+        return Math.max(Math.max(left + root.val, right + root.val), root.val);
+    }
+}
+
