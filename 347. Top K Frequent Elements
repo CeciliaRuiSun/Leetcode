@@ -1,3 +1,49 @@
+class Solution {
+    public int[] topKFrequent(int[] nums, int k) {
+        int[] ret = new int[k];
+        Map<Integer, Integer> map = new HashMap<>();
+        PriorityQueue<Node> pq = new PriorityQueue<>((a, b) -> Integer.compare(a.cnt, b.cnt));
+        
+        // store (num, count) to hashmap
+        for(int n: nums){
+            map.put(n, map.getOrDefault(n, 0) + 1);
+        }
+        
+        // put (key, value) to pq
+        for(Integer key: map.keySet()){
+            pq.offer(new Node(key, map.get(key)));
+            if(pq.size() > k) pq.poll();
+        }
+        
+        // write pq nodes' value to output array
+        int i = 0;
+        while(i < k){
+            ret[i] = pq.poll().key;
+            i ++;
+        }
+        
+        return ret;
+    }
+}
+
+
+class Node{
+    int key;
+    int cnt;
+    
+    public Node(){};
+    
+    public Node(int k, int c){
+        this.key = k;
+        this.cnt = c;
+    }
+}
+
+
+
+
+
+
 // Runtime: 30 ms, faster than 9.69%
 // Memory Usage: 46.3 MB, less than 40.40%
 
