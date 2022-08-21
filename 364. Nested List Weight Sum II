@@ -1,0 +1,44 @@
+class Solution {
+    public int depthSumInverse(List<NestedInteger> nestedList) {
+        int ret = 0;
+        int depth = 0;
+        List<Integer> num = new ArrayList<>();
+        List<Integer> preWeight = new ArrayList<>();
+        List<Integer> weight = new ArrayList<>();
+        Deque<NestedInteger> queue = new ArrayDeque<>();
+        
+        // put nestedList to a queue
+        for(NestedInteger n: nestedList){
+            queue.addLast(n);
+        }
+        
+        while(!queue.isEmpty()){
+            depth ++;
+            int size = queue.size();   // use size to help keep track of the depth
+            for(int i = 0; i < size; i++){
+                NestedInteger cur = queue.pollFirst();
+                if(cur.isInteger()){
+                    num.add(cur.getInteger());
+                    
+                    preWeight.add(depth);
+                } else{
+                    // add ELEMENTS of nested list to the end of queue
+                    for(NestedInteger n: cur.getList()){
+                        queue.addLast(n);
+                    }
+                    
+                }
+            }
+        }
+        
+        for(int i = 0; i < preWeight.size(); i ++){
+            weight.add(depth - preWeight.get(i) + 1);
+        }
+        
+        for(int i = 0; i < num.size(); i ++){
+            ret += num.get(i) * weight.get(i);
+        }
+        
+        return ret;
+    }
+}
