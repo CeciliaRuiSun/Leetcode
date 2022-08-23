@@ -1,0 +1,38 @@
+class Solution {
+    public boolean checkInclusion(String s1, String s2) {
+        if(s2.length() < s1.length()) return false;
+        Map<Character, Integer> map1 = new HashMap<>();
+        
+        
+        for(int i = 0; i < s1.length(); i ++){
+            char c = s1.charAt(i);
+            map1.put(c, map1.getOrDefault(c, 0) + 1);
+           // System.out.println("map1 key: " + c + " value: " + map1.get(c));
+        }
+        
+        for(int i = 0; i < s2.length()-s1.length() + 1; i ++){
+            if(map1.containsKey(s2.charAt(i))){
+                String sub = s2.substring(i, i + s1.length());
+                Map<Character, Integer> map2 = new HashMap<>();
+                for(int j = i; j < i + s1.length(); j ++){
+                    char c = s2.charAt(j);
+                    map2.put(c, map2.getOrDefault(c, 0) + 1);
+                    //System.out.println("j: " + j + " map2 key: " + c + " value: " + map2.get(c));
+                }
+                
+                if(isPermutation(map1, map2)) return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    private boolean isPermutation(Map<Character, Integer> map1, Map<Character, Integer> map2){
+        for(Character c: map1.keySet()){
+           if(!map2.containsKey(c) || (map2.containsKey(c) && !map1.get(c).equals(map2.get(c)))){
+                return false;
+            }
+        }
+        return true;
+    }
+}
