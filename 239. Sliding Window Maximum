@@ -1,25 +1,28 @@
-// Time exceeded
-// use pq to store index, but sort by value
-
 class Solution {
     public int[] maxSlidingWindow(int[] nums, int k) {
-        int n = nums.length;
-        if(n == 0 || k == 0 || nums == null) return nums;
+        int len = nums.length;
+        int[] ret = new int[len - k + 1];
         
-        int[] ret = new int[n - (k - 1)];
-        int curMax = nums[0];
-        PriorityQueue<Integer> maxPQ = new PriorityQueue<>((a,b) -> Integer.compare(nums[b],nums[a]));     //sorted by value
+        // pq stores index i, but ordered by nums[i]
+        PriorityQueue<Integer> pq = new PriorityQueue<>((a,b) -> Integer.compare(nums[b], nums[a]));
         
-        for(int i = 0; i < n; i++){
-            if(i - k >= 0){
-                maxPQ.remove(i - k);  //remove index;
+        for (int i = 0; i < len; i ++){
+            if(i < k){
+                pq.offer(i);
+                continue;
             }
-            
-            maxPQ.offer(i);
-            if(i >= k - 1){
-                ret[i - (k - 1)] = nums[maxPQ.peek()];
+            while (i - k > pq.peek()) {
+                pq.poll();
             }
+            ret[i - k] = nums[pq.peek()];
+            pq.offer(i);
+           
         }
+        while (len - k > pq.peek()) {
+            // use poll() instead of remove(), time complexity of remove is O(N)
+                pq.poll();
+        }
+        ret[len - k] = nums[pq.peek()];
         
         return ret;
     }
