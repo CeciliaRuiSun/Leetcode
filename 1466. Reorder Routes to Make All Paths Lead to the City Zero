@@ -1,0 +1,93 @@
+// Time limit exceeds. O(n*n)
+class Solution {
+    public int minReorder(int n, int[][] connections) {
+        boolean[] visited = new boolean[n];
+        int rotation = 0;
+        Queue<Integer> queue = new LinkedList<>();
+        queue.add(0);
+        visited[0] = true;
+
+        while(!queue.isEmpty()) {
+            int cur = queue.poll();
+            for (int i = 0; i < connections.length; i++) {
+                int a = connections[i][0];
+                int b = connections[i][1];
+                if(a==cur && !visited[b]) {
+                    queue.add(b);
+                    visited[b] = true;
+                    rotation ++;
+                }
+                if(b==cur && !visited[a]) {
+                    queue.add(a);
+                    visited[a] = true;
+                }
+            }
+        }
+        return rotation;
+    }
+    
+}
+
+
+//
+class Solution {
+    Map<Integer, List<Integer>> forward_neighbors;   // all nodes that current node can reach to
+    Map<Integer, List<Integer>> reverse_neighbors;   // all nodes that can reach current node
+
+    public int minReorder(int n, int[][] connections) {
+        boolean[] visited = new boolean[n];
+        int rotation = 0;
+        
+        ConstructNeighbors(connections);
+        
+        Queue<Integer> queue = new LinkedList<>();
+        queue.add(0);
+        visited[0] = true;
+
+        while(!queue.isEmpty()) {
+            // loop all nodes, for each node, check its forward_neighbors and reverse_neighbors
+            int cur = queue.poll();
+            if (reverse_neighbors.containsKey(cur)) {
+                for (int next : reverse_neighbors.get(cur) ) {
+                    if(!visited[next]) {
+                        queue.add(next);
+                        visited[next] = true;
+                    }
+                }
+            }
+            if (forward_neighbors.containsKey(cur)) {
+                for (int next : forward_neighbors.get(cur) ) {
+                    if(!visited[next]) {
+                        queue.add(next);
+                        visited[next] = true;
+                        rotation ++;
+                    }
+                }
+            }
+        }
+
+        return rotation;
+    }
+    
+    private void ConstructNeighbors(int[][] connections) {
+        forward_neighbors = new HashMap<>();  
+        reverse_neighbors = new HashMap<>();
+
+        for (int i = 0 ; i < connections.length; i++) {
+            int a = connections[i][0];
+            int b = connections[i][1];
+            AddEdge(forward_neighbors, a,b);
+            AddEdge(reverse_neighbors, b,a);
+        }
+    }
+    private void AddEdge(Map<Integer, List<Integer>> neighbors, int a, int b) {
+        if (neighbors.containsKey(a)) {
+                neighbors.get(a).add(b);
+            } else {
+                List<Integer> nodes = new ArrayList<>();
+                nodes.add(b);
+                neighbors.put(a,nodes);
+            }
+    }
+    
+}
