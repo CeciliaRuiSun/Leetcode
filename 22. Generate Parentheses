@@ -13,10 +13,9 @@ class Solution {
             return;
         }
         
-        if(left < right) return;
         
         if(left < n) helper(ret, cur + "(", left + 1, right, n);
-        if(right < n) helper(ret, cur + ")", left, right + 1, n);
+        if(right < n && left > right) helper(ret, cur + ")", left, right + 1, n);
     }
 }
 
