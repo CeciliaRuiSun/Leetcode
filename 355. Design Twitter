@@ -1,0 +1,70 @@
+class Twitter {
+    class Node{
+        int val;
+        int id;
+        
+        public Node(){}
+        
+        public Node(int tweetId, int userId){
+            this.val = tweetId;
+            this.id = userId;
+        }
+    }
+    
+    Deque<Node> dq;
+    Map<Integer, Set<Integer>> map;
+    
+    public Twitter() {
+        dq = new ArrayDeque<>();
+        map = new HashMap<>();
+    }
+    
+    public void postTweet(int userId, int tweetId) {
+        dq.addFirst(new Node(tweetId, userId));
+    }
+    
+    public List<Integer> getNewsFeed(int userId) {
+        List<Integer> ret = new ArrayList<>();
+        Deque<Node> dummy = new ArrayDeque<>();
+        
+        int i = 0;
+        
+        while(!dq.isEmpty() && i < 10){
+            Node cur = dq.pollFirst();
+            dummy.addLast(cur);
+            
+            if(cur.id == userId || (map.get(userId) != null && map.get(userId).contains(cur.id))){
+                ret.add(cur.val);
+                i ++;
+            }   
+        }
+        
+        while(!dummy.isEmpty()){
+            dq.addFirst(dummy.pollLast());
+        }
+
+        return ret;
+    }
+    
+    public void follow(int followerId, int followeeId) {
+        Set<Integer> followeeSet = map.getOrDefault(followerId, new HashSet<>());
+        followeeSet.add(followeeId);
+        map.put(followerId, followeeSet);
+        //System.out.println("followerId " + followerId + " set: " +  followeeSet.toString());
+        
+    }
+    
+    public void unfollow(int followerId, int followeeId) {
+        Set<Integer> followeeSet = map.getOrDefault(followerId, new HashSet<>());
+        followeeSet.remove(followeeId);
+    }
+}
+
+/**
+ * Your Twitter object will be instantiated and called as such:
+ * Twitter obj = new Twitter();
+ * obj.postTweet(userId,tweetId);
+ * List<Integer> param_2 = obj.getNewsFeed(userId);
+ * obj.follow(followerId,followeeId);
+ * obj.unfollow(followerId,followeeId);
+ */
