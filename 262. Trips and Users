@@ -1,0 +1,9 @@
+select request_at as Day, 
+cast(sum(case when status like 'cancelled%' then 1.0 else 0.0 end)/count(*) as decimal(10,2)) as 'Cancellation Rate'
+
+from Trips T left join Users U1 on T.client_id = U1.users_id
+left join Users U2 on T.driver_id = U2.users_id
+where T.request_at between '2013-10-01' and '2013-10-03'
+and U1.banned = 'No'
+and U2.banned = 'No'
+group by request_at
