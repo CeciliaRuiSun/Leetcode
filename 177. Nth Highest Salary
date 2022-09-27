@@ -1,0 +1,4 @@
+SELECT MAX(salary) FROM (
+SELECT ROW_NUMBER() OVER(ORDER BY salary DESC) AS ranking, salary FROM
+ (SELECT DISTINCT Salary FROM Employee) A) B
+WHERE ranking = @N
