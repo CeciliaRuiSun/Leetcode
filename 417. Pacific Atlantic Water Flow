@@ -1,0 +1,43 @@
+class Solution:
+    def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
+        row, col = len(heights), len(heights[0])
+        toPacific = set()
+        toAtlantic = set()
+        visitedP = set()
+        visitedA = set()
+        
+        def dfs_P(r, c, preHeights):
+            if r < 0 or c < 0 or r >= row or c >= col or (r,c) in visitedP or heights[r][c]<preHeights:
+                return;
+            visitedP.add((r,c))
+            toPacific.add((r,c))
+            dfs_P(r-1, c, heights[r][c])
+            dfs_P(r+1, c, heights[r][c])
+            dfs_P(r, c-1, heights[r][c])
+            dfs_P(r, c+1, heights[r][c])
+        
+        def dfs_A(r, c, preHeights):
+            if r < 0 or c < 0 or r >= row or c >= col or (r,c) in visitedA or heights[r][c]<preHeights:
+                return;
+            visitedA.add((r,c))
+            toAtlantic.add((r,c))
+            dfs_A(r-1, c, heights[r][c])
+            dfs_A(r+1, c, heights[r][c])
+            dfs_A(r, c-1, heights[r][c])
+            dfs_A(r, c+1, heights[r][c])
+        
+        for c in range(col):
+            dfs_P(0, c, heights[0][c])
+            dfs_A(row-1, c, heights[row-1][c])
+        
+        for r in range(row):
+            dfs_P(r, 0, heights[r][0])
+            dfs_A(r, col-1, heights[r][col-1])
+            
+        
+        ret = []
+        for (i, j) in toPacific:
+            if (i, j) in toAtlantic:
+                ret.append((i, j))
+        
+        return ret
