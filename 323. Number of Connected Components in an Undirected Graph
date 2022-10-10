@@ -1,0 +1,22 @@
+class Solution:
+    def countComponents(self, n: int, edges: List[List[int]]) -> int:
+        ret = n
+        parent = [-1] * n
+        
+        def find(node):
+            if parent[node] == -1:
+                return node
+            p = parent[node]
+            return find(p)
+        
+        def union(pa, pb):
+            parent[pb] = pa
+        
+        for a,b in edges:
+            pa = find(a)
+            pb = find(b)
+            if pa != pb:
+                union(pa, pb)
+                ret -= 1
+        
+        return ret
