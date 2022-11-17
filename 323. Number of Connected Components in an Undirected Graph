@@ -20,3 +20,31 @@ class Solution:
                 ret -= 1
         
         return ret
+
+// solution 2
+class Solution:
+    def countComponents(self, n: int, edges: List[List[int]]) -> int:
+        parents = [-1] * n
+        cnt = n
+
+        def find(n):
+            if parents[n] == -1:
+                return n
+            parent = parents[n]
+            return find(parent)
+
+        def union(m, n, component):
+            parent_m = find(m)
+            parent_n = find(n)
+            if parent_m == parent_n:
+                return component
+
+            parents[parent_m] = parent_n
+            component -= 1
+            return component
+
+        
+        for a, b in edges:
+            cnt = union(a,b, cnt)
+        
+        return cnt
