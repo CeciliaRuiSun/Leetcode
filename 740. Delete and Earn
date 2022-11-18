@@ -1,0 +1,21 @@
+class Solution:
+    def deleteAndEarn(self, nums: List[int]) -> int:
+        max_value = 0
+        for n in nums:
+            max_value = max(max_value, n)
+        
+        num_value = [0]*(max_value + 1) # points we can get if delete this num
+        memo = [0]*(max_value + 1)  #the maximum amount of points we can gain if we only consider numbers from 0 to n
+
+        for n in nums:
+            num_value[n] += n
+        
+        for i in range(max_value + 1):
+            if i == 0:
+                memo[i] = 0
+            elif i == 1:
+                memo[i] = num_value[1]
+            else:
+                memo[i] = max(memo[i-2]+num_value[i], memo[i-1])
+        
+        return memo[-1]
