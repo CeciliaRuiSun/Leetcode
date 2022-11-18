@@ -30,4 +30,5 @@ class Solution:
             return memo[i]
         
         memo = {}
+        // if we define memo as a list, be careful of out of index when i-2 < 0
         return dp(len(nums)-1)
