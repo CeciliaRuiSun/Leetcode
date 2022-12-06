@@ -47,3 +47,20 @@ class Solution {
         return ret;
     }
 }
+
+//python solution
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        hashmap = {}
+        for string in strs:
+            sortedStr = ''.join(sorted(string))
+            if sortedStr not in hashmap:
+                hashmap[sortedStr] = [string]
+            else:
+                hashmap[sortedStr].append(string)
+        
+        ret = []
+        for key in hashmap:
+            ret.append(hashmap[key])
+        
+        return ret
