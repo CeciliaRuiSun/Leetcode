@@ -1,0 +1,30 @@
+class Solution:
+    def breakPalindrome(self, palindrome: str) -> str:
+        n = len(palindrome)
+        if n <= 1:
+            return ""
+        
+        words = []
+        if n%2 == 0:
+            for i in range(n):
+                # for each character, replace with 'a' if it is not 'a', or replace with 'b' --> get n non-palindrome words
+                
+                if palindrome[i] != 'a':
+                    words.append(palindrome[:i] + 'a' + palindrome[i+1:])
+                else:
+                    words.append(palindrome[:i] + 'b' + palindrome[i+1:])
+        else:
+            for i in range(n):
+                # if palindrome is odd, we can't replace the middle character
+                if i == n//2:
+                    continue;
+                
+                if palindrome[i] != 'a':
+                    words.append(palindrome[:i] + 'a' + palindrome[i+1:])
+                else:
+                    words.append(palindrome[:i] + 'b' + palindrome[i+1:])
+
+
+        # return the smallest of the n words
+        words.sort()
+        return words[0]
