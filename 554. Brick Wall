@@ -1,0 +1,26 @@
+class Solution:
+    def leastBricks(self, wall: List[List[int]]) -> int:
+        count = {}
+        
+        for i in range(len(wall)):
+            cur_gap = []
+            for j in range(len(wall[i])-1):
+                cur = wall[i][j]
+                if j == 0:
+                    cur_gap.append(cur)
+                else:
+                    cur = cur_gap[-1] + wall[i][j]
+                    cur_gap.append(cur)
+                
+                if cur in count:
+                    count[cur] += 1
+                else:
+                    count[cur] = 1
+        
+        max_cnt = 0
+        for k in count:
+            if count[k] > max_cnt:
+                max_cnt = count[k]
+        
+        return len(wall) - max_cnt
+
